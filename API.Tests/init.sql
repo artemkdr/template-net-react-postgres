@@ -1,8 +1,8 @@
 --ALTER ROLE postgres WITH SUPERUSER;
 
---CREATE DATABASE "footballstats";
+--CREATE DATABASE "somedatabase";
 
---\c "footballstats"
+--\c "somedatabase"
 
 CREATE TABLE users (
 	username text PRIMARY KEY,
