@@ -1,6 +1,7 @@
 using API.Data;
 using API.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using NLog;
 
 namespace API.Controllers;
@@ -35,12 +36,22 @@ abstract public class BaseController : ControllerBase
     }
 
     [NonAction]
+    public virtual ObjectResult UnauthorizedProblem(string? detail = null) {
+        return Problem(
+            detail: detail, 
+            title: "Unauthorized", 
+            statusCode: StatusCodes.Status401Unauthorized, 
+            type: "https://tools.ietf.org/html/rfc7235#section-3.1"
+        );
+    }
+
+    [NonAction]
     public virtual ObjectResult BadRequestProblem(string? detail = null) {
         return Problem(
             detail: detail, 
             title: "Bad Request", 
             statusCode: StatusCodes.Status400BadRequest, 
-            type: "https://tools.ietf.org/html/rfc7231#section-6.5.1"
+            type: "https://tools.ietf.org/html/rfc7231#section-6.5.1"            
         );
     } 
 }

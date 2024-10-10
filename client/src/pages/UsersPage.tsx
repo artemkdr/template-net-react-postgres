@@ -3,6 +3,7 @@ import { FunctionComponent, ReactElement, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLoaderData } from 'react-router-dom';
 import { convertDataToUserList, User } from '../models/User';
+import { convertDataToList } from '../models/List';
 
 export const UsersPage: FunctionComponent = (): ReactElement => {
 	const data : any = useLoaderData();        
@@ -10,7 +11,7 @@ export const UsersPage: FunctionComponent = (): ReactElement => {
 	const [users, setUsers] = useState<User[]>([] as User[]);
 
 	useEffect(() => {      
-        setUsers(convertDataToUserList(data));    
+        setUsers(convertDataToUserList(convertDataToList(data)?.List));    
     }, [data]);
 
 	return (
@@ -18,7 +19,7 @@ export const UsersPage: FunctionComponent = (): ReactElement => {
             <Heading as="h2" size="md">{t("Users.Title")}</Heading>
 			{users.length > 0 ? 
 				users.map(user => (
-					<Text key={user.Username}>${user.Username}</Text>
+					<Text key={user.Username}>{user.Username} ({user.Status})</Text>
 				)) :
 				<Text>{t("Users.Empty")}</Text>
 			}			

@@ -17,7 +17,7 @@ This example provides a Dockerized setup for a .NET API backend and a React fron
 ├── Dockerfile.psql
 ├── docker-compose.yml
 ├── docker-compose-db.yml
-└── service.sln
+└── template-net-react-postgres.sln
 
 ```
 
@@ -32,10 +32,10 @@ This example provides a Dockerized setup for a .NET API backend and a React fron
    ```bash
    git clone --no-checkout https://github.com/artemkdr/template-net-react-postgres   
    ```
-2. **(Optional) Configure environment variables:**
+2. **Configure environment variables:**
     * Create a `.env` file in the root directory to customize the following:
         * `APP_PORT` (for the frontend, defaults to 80)
-        * `DB_CONNECTION_STRING` (for the backend)
+        * `DB_CONNECTION_STRING` (for the backend: `Host=localhost;Port=5432;Database=somedatabase;Username=postgres;Password=postgres`)
 
 3. **Build and run the services:**
     ```
@@ -58,5 +58,5 @@ This example provides a Dockerized setup for a .NET API backend and a React fron
 
 ## Notes
 * The [nginx.conf](nginx/nginx.conf) file configures Nginx to serve the React app and proxy API requests to the backend.
-* The [init.sql](psqlinit/init.sql) script initializes the PostgreSQL database.
+* The [init.sql](psqlinit/init.sql) script initializes the PostgreSQL database with the name `somedatabase`. Find/replace it over the project if you want to use another one (`init.sql`, `appsettings.*.json`, `.env`).
 * The Dockerfiles use multi-stage builds for optimized image size
