@@ -1,0 +1,59 @@
+# Docker Compose file for a web application with a frontend, backend, and database.
+
+services:
+
+  # Frontend service
+  frontend:
+    # Build the image using the Dockerfile.client in the current directory.
+    build: 
+      context: .
+      dockerfile: Dockerfile.client
+      # Pass build arguments to the Dockerfile.
+      args:
+        - API_HOST=backend  # Set the API hostname for the frontend to connect to.
+        - API_PORT=5000    # Set the API port for the frontend to connect to.
+    image: somerandomname.client          # The name of the built image.
+    container_name: somerandomname-client-container  # The name of the container.
+    env_file:                            # Load environment variables from a file.
+      - path: .env                       # Path to the .env file.
+        required: false                  # The .env file is optional.
+    ports:
+      - ${APP_PORT:-80}:80              # Map port 80 on the host to port 80 in the container, 
+                                        # or use the value of APP_PORT from the .env file if it exists.
+    networks:
+      - internal                         # Connect the service to the "internal" network.
+
+  # Backend service
+  backend:
+    # Build the image using the Dockerfile.api in the current directory.
+    build: 
+      context: .
+      dockerfile: Dockerfile.api 
+      # Pass build arguments to the Dockerfile.
+      args:
+        - PORT=5000                      # Set the port for the backend API.
+        - DB_CONNECTION_STRING=${DB_CONNECTION_STRING} # Set the database connection string, 
+                                                        # which can be defined in the .env file.
+    image: somerandomname.api            # The name of the built image.
+    container_name: somerandomname-api-container  # The name of the container.
+    networks:
+      - internal                         # Connect the service to the "internal" network.
+
+  # Database service
+  db:
+    # Build the image using the Dockerfile.psql in the current directory.
+    build:
+      context: .
+      dockerfile: Dockerfile.psql 
+    image: somerandomname.db              # The name of the built image.
+    container_name: somerandomname-db-container  # The name of the container.
+    environment:                          # Set environment variables for the database.
+      POSTGRES_USER: postgres             # Postgres username.
+      POSTGRES_PASSWORD: postgres         # Postgres password.
+      PGDATA: /var/lib/postgresql/data/pgdata  # Location of the Postgres data directory.
+    networks:
+      - internal                         # Connect the service to the "internal" network.
+
+# Define the networks used by the services.
+networks:
+  internal:                             # An internal network for communication between services.

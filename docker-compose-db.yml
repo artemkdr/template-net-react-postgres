@@ -1,0 +1,19 @@
+# Docker Compose file for a PostgreSQL database service.
+
+services:
+  # Database service
+  db:
+    # Build the image using the Dockerfile.psql in the current directory.
+    build:
+      context: .
+      dockerfile: Dockerfile.psql 
+    image: somerandomname.db              # The name of the built image.
+    container_name: somerandomname-db-container  # The name of the container.
+    environment:                          # Set environment variables for the database.
+      POSTGRES_USER: postgres             # Postgres username.
+      POSTGRES_PASSWORD: postgres         # Postgres password.
+      PGDATA: /var/lib/postgresql/data/pgdata  # Location of the Postgres data directory.
+    ports:
+      - 5442:5432                        # Map port 5442 on the host to port 5432 in the container. 
+                                        # Use a non-standard port (5442) on the host to avoid conflicts 
+                                        # with any existing PostgreSQL server running locally.

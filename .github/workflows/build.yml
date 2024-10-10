@@ -1,0 +1,23 @@
+# This workflow is suitable for .net 6/react project with a following structure:
+#   client/
+#   dotnetservice.sln
+#   ...
+# This workflow runs build-net.yml and build-react.yml workflows
+# The workflow can be called from another one or triggered manually
+name: "Build .NET+React app"
+
+on: 
+  workflow_dispatch:
+  workflow_call:
+
+jobs:
+  build-net:
+    uses: ./.github/workflows/build-net.yml
+    with:
+      runner: "'ubuntu-latest'"
+      dotnet-version: '6.0.x'
+  build-react:
+    uses: ./.github/workflows/build-react.yml
+    with:
+      working-directory: 'client'
+      node-version: '18'

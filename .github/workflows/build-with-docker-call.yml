@@ -1,0 +1,13 @@
+# Build and pushes a docker image to Docker hub using Dockerfile in the root of project.
+name: Build with docker
+
+on: 
+  workflow_dispatch:
+  workflow_call:
+
+jobs:
+  build:
+    uses: ./.github/workflows/build-with-docker.yml
+    with:
+        tags: "artemkdr/private:testservice"
+    secrets: inherit

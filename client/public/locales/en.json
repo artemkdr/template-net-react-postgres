@@ -1,0 +1,12 @@
+{
+    "Title": "Template .NET-React-Postgres",
+    "Salutation": "Hi {{user}}!",
+    "Navigation": {
+        "Home": "Home",
+        "Users": "Users"
+    },
+    "Users": {
+        "Title": "Users",
+        "Empty": "No users in database"
+    }
+}
