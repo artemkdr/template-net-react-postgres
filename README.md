@@ -60,9 +60,12 @@ Authentication is done via [Login page](client/src/pages/Login.tsx) and [authSto
     ```
 
 ## Accessing the Application
-* **Frontend:** Access the React app in your browser at `http://localhost:{APP_PORT}` (replace `{APP_PORT}` with the actual port, default is 80).
-* **Backend:** The .NET API will be running at `http://localhost:{APP_PORT}/api` or `http://localhost:5000` if running as a separate image.
-* **Database:** The PostgreSQL database will be accessible on port 5442.
+If you run it via docker-compose as one service then you can access only **Frontend** with http://localhost and http://localhost/api (http://localhost/api/swagger/index.html).
+
+If you you run as separate parts:
+* **Frontend:** Access the React app in your browser at `http://localhost:{APP_PORT}` (replace `{APP_PORT}` with the actual port, default is 80 or 3000 if running with `npm run start`).
+* **Backend:** The .NET API will be running at `http://localhost:{APP_PORT}/api` or `http://localhost:5000` if running as a separate image or with `dotnet run`.
+* **Database:** The PostgreSQL database will be accessible on port 5442 if you run it with docker-compose-db.yml file.
 
 ## Notes
 * The [nginx.conf](nginx/nginx.conf) file configures Nginx to serve the React app and proxy API requests to the backend.
