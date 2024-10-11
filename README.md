@@ -43,7 +43,7 @@ Authentication is done via [Login page](client/src/pages/Login.tsx) and [authSto
 2. **Configure environment variables:**
     * Create a `.env` file in the root directory to customize the following:
         * `APP_PORT` (for the frontend, defaults to 80)
-        * `DB_CONNECTION_STRING` (for the backend: `Host=localhost;Port=5432;Database=somedatabase;Username=postgres;Password=postgres`)
+        * `DB_CONNECTION_STRING` (for the backend: `Host=db;Port=5432;Database=somedatabase;Username=postgres;Password=postgres`)
 
 3. **Build and run the services:**
     ```
