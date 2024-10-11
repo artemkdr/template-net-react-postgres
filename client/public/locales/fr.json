@@ -3,10 +3,28 @@
     "Salutation": "Salut {{user}}!",
     "Navigation": {
         "Home": "Accueil",
-        "Users": "Utilisateurs"
+        "Users": "Utilisateurs",
+        "CurrentUser": "Connecté comme \"{{user}}\""
+    },
+    "Login": {
+        "Title": "Connexion au service",
+        "Login": "Connexion",
+        "Username": "Nom d'utilisateur",
+        "Password": "Mot de pasee",
+        "Button": "Se connecter"
     },
     "Users": {
         "Title": "Utilisateurs",
         "Empty": "Pas d'utilisateurs dans la base de données"
+    },
+    "Message": {
+        "Success": "Hourra !",
+        "Error": "Erreur",
+        "UnknownError": "Quelque chose s'est mal passé, veuillez envoyer une capture d'écran à l'équipe de développement.",
+        "RouterError": "Oups",
+        "LoaderError": "Problème de chargement des données... Essayez de vous reconnecter, si rien ne vous aide, contactez l'équipe de développement.",
+        "LoginError": "Une erreur s'est produite lors de la connexion",
+        "LoginErrorWrongCredentials": "Nom d'utilisateur ou mot de passe invalide",
+        "ForbidError": "Vous n'avez pas de droits pour executer cette operation"
     }
 }

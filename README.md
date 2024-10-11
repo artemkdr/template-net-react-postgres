@@ -2,10 +2,18 @@
 
 This example provides a Dockerized setup for a .NET API backend and a React frontend, along with a PostgreSQL database.
 
+.NET app has [LoginController](API/Controllers/LoginController.cs) using JWT token for authorization.
+
+React client app has one ['Welcome' public page](client/src//pages/Welcome.tsx) and one ['Users' page](client/src/pages/UsersPage.tsx) that can be accessed for authenticated users only.
+
+Authentication is done via [Login page](client/src/pages/Login.tsx) and [authStore](client/src/stores/authStore.ts).
+
 ## Project Structure
 ```
 ├── API
 │   └── ... (.NET API project)
+├── API.Tests
+│   └── ... (.NET API tests)
 ├── client
 │   └── ... (React frontend project)
 ├── nginx
@@ -30,7 +38,7 @@ This example provides a Dockerized setup for a .NET API backend and a React fron
 1. **Clone the repository:**
 
    ```bash
-   git clone --no-checkout https://github.com/artemkdr/template-net-react-postgres   
+   git clone https://github.com/artemkdr/template-net-react-postgres   
    ```
 2. **Configure environment variables:**
     * Create a `.env` file in the root directory to customize the following:
@@ -58,5 +66,5 @@ This example provides a Dockerized setup for a .NET API backend and a React fron
 
 ## Notes
 * The [nginx.conf](nginx/nginx.conf) file configures Nginx to serve the React app and proxy API requests to the backend.
-* The [init.sql](psqlinit/init.sql) script initializes the PostgreSQL database with the name `somedatabase`. Find/replace it over the project if you want to use another one (`init.sql`, `appsettings.*.json`, `.env`).
+* The [init.sql](psqlinit/init.sql) script initializes the PostgreSQL database with the name `somedatabase` and fills `users` table with 5 users with hashed passwords. Find/replace it over the project if you want to use another one (`init.sql`, `appsettings.*.json`, `.env`).
 * The Dockerfiles use multi-stage builds for optimized image size

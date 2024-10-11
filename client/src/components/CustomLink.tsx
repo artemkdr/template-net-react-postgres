@@ -8,6 +8,7 @@ interface CustomLinkProps extends LinkProps {
 
 export const CustomLink: React.FC<CustomLinkProps> = (props) => {
     const { link, text, ...rest } = props;
+    
     return (
         <ChakraLink as={ReactRouterLink} to={link} textDecoration={"underline"} {...rest}>
             <Text>{text}</Text>																

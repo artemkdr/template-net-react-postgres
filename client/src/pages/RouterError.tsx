@@ -2,10 +2,8 @@ import { AlertDialog, AlertDialogBody, AlertDialogCloseButton, AlertDialogConten
 import { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { isRouteErrorResponse, useNavigate, useRouteError } from 'react-router-dom'
-
-// If there is no catch-all route, this will be rendered and it will show a 404 error. However in that case, it's not being rendered
-// in the <Outlet> of the Root component. So it will fill the whole screen and create an unfriendly user experience.
-// For this reason, we have a catch-all route in src\index.tsx with a <NotFound> component that will be rendered in the <Outlet> of the Root component.
+import Login from './Login';
+import { useAuthStore } from '../stores/authStore';
 
 type RouterErrorProps = {
 	error?: Error; // Make the error prop optional	
@@ -15,6 +13,7 @@ export const RouterError = ({ error } : RouterErrorProps) => {
 	const { t } = useTranslation();
 	const nav = useNavigate();
 	const cancelRef = useRef(null);	
+	const authStore = useAuthStore();
 	const displayedError: unknown = useRouteError() ?? error;
 	const [isOpened, setIsOpened] = useState(true);
 	const onClose = () => {
@@ -33,6 +32,10 @@ export const RouterError = ({ error } : RouterErrorProps) => {
 	} else {		
 		errorMessage = t('Message.UnknownError');
 	}	
+	const isAuthError = (displayedError as any)?.status === 401 || (displayedError as any)?.cause === 401 || !authStore.isLoggedIn;
+	if (isAuthError) {
+		return <Login />;
+	}
 	if ((displayedError as any)?.status === 403 || (displayedError as any)?.cause === 403)
 		errorMessage = "ForbidError";
 	return (		

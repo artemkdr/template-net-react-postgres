@@ -1,14 +1,17 @@
-import { Link as ChakraLink, Flex, HStack, Select, useColorMode } from '@chakra-ui/react'
+import { Button, Flex, HStack, Select, Text, useColorMode } from '@chakra-ui/react'
 import { FunctionComponent, ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import { NavLink as ReactRouterLink } from 'react-router-dom'
+import { MdLogout } from 'react-icons/md'
+import { useAuthStore } from '../stores/authStore'
 import { ColorModeSwitcher } from './ColorModeSwitcher'
+import { CustomNavLink } from './CustomNavLink'
 
 export const NavBar: FunctionComponent = (): ReactElement => {
 	const { colorMode } = useColorMode();		
-	const { t, i18n } = useTranslation();
-	const activeStyle = {fontWeight: 'bold'};
-	
+	const { t, i18n } = useTranslation();	
+	const authStore = useAuthStore();
+	const logout = useAuthStore((state) => state.logout);
+		
 	const changeLanguage = (event: React.ChangeEvent<HTMLSelectElement>) => {
 		i18n.changeLanguage(event.target.value);
 	};
@@ -28,20 +31,28 @@ export const NavBar: FunctionComponent = (): ReactElement => {
 			width="100%" overflowX={"auto"} >
 			
 			<HStack overflow={"auto"} spacing={[2,4]}>
-				<ChakraLink as={ReactRouterLink} to="/welcome" mr={[1,4,6,8]} _activeLink={activeStyle}>{t('Navigation.Home')}</ChakraLink>
-				<ChakraLink as={ReactRouterLink} to="/users" mr={[1,4,6,8]} _activeLink={activeStyle}>{t('Navigation.Users')}</ChakraLink>
+				<CustomNavLink link={"/welcome"} text={t('Navigation.Home')} textDecoration={"none"} />
+				<CustomNavLink link={"/users"} text={t('Navigation.Users')} textDecoration={"none"} />
 			</HStack>
 
-			<HStack spacing={[0,2]}  overflow={"auto"}>
-				<Select
+			<HStack spacing={1}  overflow={"auto"}>
+				<Select					
 					value={i18n.language} 
-					onChange={changeLanguage} width={["40px", "45px"]}
+					onChange={changeLanguage} width={"3.5em"}
 					size={"inherit"} border={"none"} outline={"none"} >
 					{["en", "fr"].map((item, index) => {
 						return <option value={item} key={index}>{item?.toUpperCase()}</option>;
 					})}
 				</Select>				
-				<ColorModeSwitcher />								
+				<ColorModeSwitcher />	
+				{authStore.isLoggedIn ?
+					<HStack>
+						<Text>{t("Navigation.CurrentUser", {user: authStore.getUserName()})}</Text>
+						<Button variant="ghost" onClick={logout} aria-label="logout"><MdLogout /></Button>
+					</HStack>
+					:
+					<CustomNavLink link="/login" text={t("Login.Button")} />
+				}				
 			</HStack>			
 		</Flex>
 	)

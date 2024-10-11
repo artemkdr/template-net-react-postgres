@@ -3,10 +3,28 @@
     "Salutation": "Hi {{user}}!",
     "Navigation": {
         "Home": "Home",
-        "Users": "Users"
+        "Users": "Users",
+        "CurrentUser": "Logged in as \"{{user}}\""
+    },
+    "Login": {
+        "Title": "Login to the service",
+        "Login": "Login",
+        "Username": "Username",
+        "Password": "Password",
+        "Button": "Login"
     },
     "Users": {
         "Title": "Users",
         "Empty": "No users in database"
+    },
+    "Message": {
+        "Success": "Hoorah!",
+        "Error": "Error",        
+        "UnknownError": "Something went wrong, please send a screenshot to the dev team.",
+        "RouterError": "Oups",
+        "LoaderError": "Data loading problem... Try to relogin, if nothing helps contact the dev team.",
+        "LoginError": "An error occurred during login",
+        "LoginErrorWrongCredentials": "Invalid username or password",
+        "ForbidError": "You do not have permission to perform this operation"
     }
 }
