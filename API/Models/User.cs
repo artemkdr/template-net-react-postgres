@@ -6,7 +6,7 @@ using System.Text.Json.Serialization;
 namespace API.Models
 {
     [Table("users")]
-    public class User
+    public class User : IUser
     {
         [Key] 
         [Column("username")]
