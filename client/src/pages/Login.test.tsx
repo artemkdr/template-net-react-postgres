@@ -57,13 +57,13 @@ describe("<Login />", () => {
         const passwordInput = container.querySelector("#password");
         const button = await screen.getByRole("button");
         
-        fireEvent.change(loginInput as Element, { target: { value: 'test@test.com' } });
-        fireEvent.change(passwordInput as Element, { target: { value: 'test' } });
+        fireEvent.change(loginInput as Element, { target: { value: 'user1' } });
+        fireEvent.change(passwordInput as Element, { target: { value: 'password1' } });
         await act(() => { fireEvent.click(button) });        
         await waitFor(() => {
             expect(mockedUseNavigate).toHaveBeenCalledWith(document.location.pathname + document.location.search);
             expect(useAuthStore.getState().isLoggedIn).toEqual(true);
-            expect(useAuthStore.getState().getUserName()).toEqual("test@test.com");
+            expect(useAuthStore.getState().getUserName()).toEqual("user1");
         });        
     });
 });

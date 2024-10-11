@@ -16,7 +16,7 @@ RUN npm ci
 COPY client ./
 
 # Replace the default config with the Docker-specific config.
-# COPY client/src/config.docker.ts ./src/config.ts
+COPY client/src/config.docker.ts ./src/config.ts
 
 # Disable source map generation for production.
 ENV GENERATE_SOURCEMAP=false 

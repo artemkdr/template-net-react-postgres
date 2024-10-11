@@ -54,6 +54,9 @@ const Login: FunctionComponent = () => {
       }      
     } else {
       logout();
+      console.log(username + " - " + password);
+      console.log(response);
+      console.log(response.status);
       if (response.status === 401) {
         setErrorMessage(t("Message.LoginErrorWrongCredentials"));
       } else {
