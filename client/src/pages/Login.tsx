@@ -75,7 +75,7 @@ const Login: FunctionComponent = () => {
             <InputLeftElement pointerEvents='none'>
               <MdEmail />
             </InputLeftElement>
-            <Input placeholder={t("Login.Email")} id='login' value={username} onChange={(e) => setUsername(e.target.value)} onKeyDown={keyDownHandler} />
+            <Input placeholder={t("Login.Username")} id='login' value={username} onChange={(e) => setUsername(e.target.value)} onKeyDown={keyDownHandler} />
           </InputGroup>
           <InputGroup>
             <InputLeftElement pointerEvents='none'>

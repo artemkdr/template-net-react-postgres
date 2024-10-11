@@ -32,7 +32,7 @@ services:
       # Pass build arguments to the Dockerfile.
       args:
         - PORT=5000                      # Set the port for the backend API.
-        - DB_CONNECTION_STRING=${DB_CONNECTION_STRING} # Set the database connection string, 
+        - DB_CONNECTION_STRING=${DB_CONNECTION_STRING:-Host=db;Port=5432;Database=somedatabase;Username=postgres;Password=postgres} # Set the database connection string, 
                                                         # which can be defined in the .env file.
     image: somerandomname.api            # The name of the built image.
     container_name: somerandomname-api-container  # The name of the container.

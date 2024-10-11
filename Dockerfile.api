@@ -22,7 +22,7 @@ RUN apt-get update && apt-get install -y curl
 RUN apt-get update && apt-get install -y gettext-base
 
 ARG PORT=5000
-ARG DB_CONNECTION_STRING=
+ARG DB_CONNECTION_STRING=${DB_CONNECTION_STRING}
 ENV PORT=${PORT}
 ENV DB_CONNECTION_STRING=${DB_CONNECTION_STRING}
 COPY --from=build-api /app/api /app/api
