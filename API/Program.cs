@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using API.Discovery;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -51,6 +52,11 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
     };    
 });
 
+// Register with Consul
+if (builder.Configuration.GetSection("Consul") != null) {    
+    builder.Services.AddHostedService<AutoDiscoveryService>();
+}
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -72,7 +78,7 @@ app.UseSwagger(c =>
 });
 app.UseSwaggerUI();
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();

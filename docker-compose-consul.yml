@@ -1,0 +1,26 @@
+services:
+  consul-server:
+    image: hashicorp/consul:latest
+    container_name: consul-server
+    ports:
+      - "8500:8500"  # HTTP API
+      - "8600:8600/udp"  # DNS interface
+    volumes:
+      - consul_data:/consul/data # Named volume for data persistence    
+    command:
+      - agent
+      - -server
+      - -ui
+      - -node=server-1
+      - -bootstrap-expect=1
+      - -client=0.0.0.0
+  # consul-client:
+  #   image: hashicorp/consul:latest
+  #   container_name: consul-client    
+  #   command:
+  #     - agent      
+  #     - -node=client-1      
+  #     - -retry-join=172.3.0.3
+
+volumes:
+  consul_data:  # Define the named volume
