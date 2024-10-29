@@ -58,4 +58,3 @@ EXPOSE 80
 
 # Start Nginx
 CMD ["sh", "-c", "consul-template -config=/etc/consul-template/consul-template.hcl & nginx -g 'daemon off;'"] 
-#CMD ["nginx", "-g", "daemon off;"]
