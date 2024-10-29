@@ -34,12 +34,28 @@ ENV API_PORT=${API_PORT}
 WORKDIR /app
 COPY --from=build-client /app/client/build /usr/share/nginx/html
 COPY nginx/nginx.conf /tmp/nginx.conf
+COPY nginx/nginx.conf.ctmpl /tmp/nginx.conf.ctmpl
 
 # Substitute the API_HOST and API_PORT placeholders in nginx.conf with the environment variable values.
 RUN envsubst '$API_HOST $API_PORT' < /tmp/nginx.conf > /etc/nginx/nginx.conf
+
+# Install consul-template
+RUN apk add --no-cache unzip curl && \
+    curl -LO https://releases.hashicorp.com/consul-template/0.39.1/consul-template_0.39.1_linux_amd64.zip && \
+    unzip consul-template_0.39.1_linux_amd64.zip -d /usr/local/bin && \
+    rm consul-template_0.39.1_linux_amd64.zip && \
+    rm -rf /var/lib/apk/lists/*
+
+# Create directory for Consul Template configuration
+RUN mkdir -p /etc/consul-template
+
+# Copy Consul Template configuration files
+RUN envsubst '$API_HOST $API_PORT' < /tmp/nginx.conf.ctmpl > /etc/consul-template/nginx.conf.ctmpl
+COPY nginx/consul-template.hcl /etc/consul-template/consul-template.hcl
 
 # Expose port 80 (default for Nginx)
 EXPOSE 80
 
 # Start Nginx
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["sh", "-c", "consul-template -config=/etc/consul-template/consul-template.hcl & nginx -g 'daemon off;'"] 
+#CMD ["nginx", "-g", "daemon off;"]
