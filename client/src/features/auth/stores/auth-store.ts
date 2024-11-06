@@ -31,7 +31,7 @@ export const useAuthStore = create<AuthStore>((set) => ({
 	isLoggedIn: false,
     isLoading: false,    
     token: null,        
-	login: (token, id = '') => {
+	login: (token) => {
         set({ isLoggedIn: true, token: token });        
         localStorage.setItem(tokenKey, token);        
     },

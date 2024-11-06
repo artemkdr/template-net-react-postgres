@@ -42,13 +42,13 @@ export const AppRouter: React.FC = () => {
 				{				
 					path: '/users',
 					element: <UsersPage />,
-					loader: async({ params }) => {											
+					loader: async() => {											
 						const response = await callApi(`user`);
 						if (response.ok) {
 							var json = await response.json();
 							return json;
 						}
-						throw new Error("LoaderError", { cause: response.status });
+						throw new Error("LoaderError");
 					}
 				},			
 				{				

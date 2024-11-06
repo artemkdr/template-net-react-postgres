@@ -1,6 +1,5 @@
 // 1. import `extendTheme` function
 import { extendTheme } from '@chakra-ui/react';
-import '@fontsource/roboto-condensed';
 import '@fontsource/roboto-condensed/300.css';
 
 // 2. Add your color mode config
