@@ -1,13 +1,14 @@
 import { ErrorBoundary } from "react-error-boundary";
 import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
-import { Layout } from "../Layout";
-import callApi from "../net/api";
-import Login from "../pages/Login";
-import { NotFound } from "../pages/NotFound";
-import { RouterError } from "../pages/RouterError";
-import { UsersPage } from "../pages/UsersPage";
-import { Welcome } from "../pages/Welcome";
-import { useAuthStore } from "../stores/authStore";
+import { Layout } from "@/features/layout/layout";
+import callApi from "@/lib/api";
+import Login from "@/app/pages/login";
+import { NotFound } from "@/app/pages/errors/not-found";
+import { RouterError } from "@/app/pages/errors/router-error";
+import { UsersPage } from "@/app/pages/users";
+import { Welcome } from "@/app/pages/welcome";
+import { useAuthStore } from "@/features/auth/stores/auth-store";
+import { AuthContext } from "@/features/layout/contexts/auth-context";
 
 export const AppRouter: React.FC = () => {
 	const authStore = useAuthStore();
@@ -15,7 +16,18 @@ export const AppRouter: React.FC = () => {
 	const router = createBrowserRouter([
 		{
 			path: '/',
-			element: <ErrorBoundary FallbackComponent={RouterError}><Layout /></ErrorBoundary>,
+			element: 
+				<ErrorBoundary FallbackComponent={RouterError}>
+					<AuthContext.Provider 
+						value={{ 
+							isLoggedIn: authStore.isLoggedIn, 
+							userName: authStore.getUserName(), 
+							logout: authStore.logout, 
+							login: authStore.login 
+						}}>
+						<Layout />
+					</AuthContext.Provider>
+				</ErrorBoundary>,
 			errorElement: <RouterError />,				
 			children: [
 				{

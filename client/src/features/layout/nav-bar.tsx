@@ -2,15 +2,14 @@ import { Button, Flex, HStack, Select, Text, useColorMode } from '@chakra-ui/rea
 import { FunctionComponent, ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { MdLogout } from 'react-icons/md'
-import { useAuthStore } from '../stores/authStore'
-import { ColorModeSwitcher } from './ColorModeSwitcher'
-import { CustomNavLink } from './CustomNavLink'
+import { ColorModeSwitcher } from '@/features/layout/components/color-mode-switcher'
+import { CustomNavLink } from '@/features/layout/components/custom-nav-link'
+import { useAuthContext } from '@/features/layout/contexts/auth-context'
 
 export const NavBar: FunctionComponent = (): ReactElement => {
 	const { colorMode } = useColorMode();		
-	const { t, i18n } = useTranslation();	
-	const authStore = useAuthStore();
-	const logout = useAuthStore((state) => state.logout);
+	const { t, i18n } = useTranslation();		
+	const { isLoggedIn, userName, logout } = useAuthContext();
 		
 	const changeLanguage = (event: React.ChangeEvent<HTMLSelectElement>) => {
 		i18n.changeLanguage(event.target.value);
@@ -45,9 +44,9 @@ export const NavBar: FunctionComponent = (): ReactElement => {
 					})}
 				</Select>				
 				<ColorModeSwitcher />	
-				{authStore.isLoggedIn ?
+				{isLoggedIn ?
 					<HStack>
-						<Text>{t("Navigation.CurrentUser", {user: authStore.getUserName()})}</Text>
+						<Text>{t("Navigation.CurrentUser", {user: userName})}</Text>
 						<Button variant="ghost" onClick={logout} aria-label="logout"><MdLogout /></Button>
 					</HStack>
 					:

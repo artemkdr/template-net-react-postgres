@@ -1,9 +1,9 @@
 import { act, fireEvent, render, screen, waitFor } from "@testing-library/react";
-import Login from "./Login";
+import Login from "@/app/pages/login";
 import { MemoryRouter } from "react-router-dom";
-import { useAuthStore } from "../stores/authStore";
+import { useAuthStore } from "@/features/auth/stores/auth-store";
 
-jest.mock("../net/api");
+jest.mock("@/lib/api");
 
 jest.mock("react-i18next", () => ({
     I18nextProvider: jest.fn(),    

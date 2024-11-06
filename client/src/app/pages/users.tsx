@@ -2,8 +2,8 @@ import { Heading, Text, VStack } from '@chakra-ui/react';
 import { FunctionComponent, ReactElement, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLoaderData } from 'react-router-dom';
-import { convertDataToUserList, User } from '../models/User';
-import { convertDataToList } from '../models/List';
+import { convertDataToUserList, User } from '@/features/users/types/User';
+import { convertDataToList } from '@/types/List';
 
 export const UsersPage: FunctionComponent = (): ReactElement => {
 	const data : any = useLoaderData();        

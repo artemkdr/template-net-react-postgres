@@ -1,13 +1,12 @@
 import { jwtDecode } from 'jwt-decode';
 import { create } from 'zustand';
-import config from '../config';
-import callApi from '../net/api';
 
+const tokenKey = 'authToken';
 
 interface AuthStore {
 	isLoggedIn: boolean,
     isLoading: boolean,
-    token: string | null,       
+    token: string | null,     
 	login: (token: string) => void,
 	logout: () => void,
     getUserName: () => string | null,
@@ -31,14 +30,14 @@ interface JwtPayload {
 export const useAuthStore = create<AuthStore>((set) => ({
 	isLoggedIn: false,
     isLoading: false,    
-    token: null,    
+    token: null,        
 	login: (token, id = '') => {
         set({ isLoggedIn: true, token: token });        
-        localStorage.setItem(config.TOKEN_KEY, token);        
+        localStorage.setItem(tokenKey, token);        
     },
 	logout: () => {
         set({ isLoggedIn: false, token: null });
-        localStorage.removeItem(config.TOKEN_KEY);
+        localStorage.removeItem(tokenKey);
     },
     getUserName: () => {
         const token = useAuthStore.getState().token;
@@ -83,8 +82,8 @@ export const useAuthStore = create<AuthStore>((set) => ({
 }));
 
 // Initialize store on app load
-(async function initializeAuthStore() {
-    const storedToken = localStorage.getItem(config.TOKEN_KEY);    
+export const initializeAuthStore = (callApi : Function) => async function() {
+    const storedToken = localStorage.getItem(tokenKey);    
     if (storedToken) {
         useAuthStore.getState().login(storedToken);        
         useAuthStore.setState({ isLoading: true });
@@ -99,4 +98,4 @@ export const useAuthStore = create<AuthStore>((set) => ({
         }
         useAuthStore.setState({ isLoading: false });
     }
-  })();
+};

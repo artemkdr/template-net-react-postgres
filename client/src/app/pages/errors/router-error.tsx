@@ -2,8 +2,8 @@ import { AlertDialog, AlertDialogBody, AlertDialogCloseButton, AlertDialogConten
 import { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { isRouteErrorResponse, useNavigate, useRouteError } from 'react-router-dom'
-import Login from './Login';
-import { useAuthStore } from '../stores/authStore';
+import Login from '@/app/pages/login';
+import { useAuthStore } from '@/features/auth/stores/auth-store';
 
 type RouterErrorProps = {
 	error?: Error; // Make the error prop optional	

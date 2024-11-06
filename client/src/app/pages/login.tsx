@@ -14,8 +14,8 @@ import {
 import { useTranslation } from 'react-i18next';
 import { MdEmail, MdPassword } from "react-icons/md";
 import { useNavigate } from 'react-router-dom';
-import callApi from '../net/api';
-import { useAuthStore } from '../stores/authStore';
+import callApi from '@/lib/api';
+import { useAuthStore } from '@/features/auth/stores/auth-store';
 
 const Login: FunctionComponent = () => {
   const [username, setUsername] = useState('');

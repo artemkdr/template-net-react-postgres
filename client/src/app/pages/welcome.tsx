@@ -1,7 +1,7 @@
 import { Heading, VStack } from '@chakra-ui/react';
 import { FunctionComponent, ReactElement } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useAuthStore } from '../stores/authStore';
+import { useAuthStore } from '@/features/auth/stores/auth-store';
 
 export const Welcome: FunctionComponent = (): ReactElement => {	
     const { t } = useTranslation();
