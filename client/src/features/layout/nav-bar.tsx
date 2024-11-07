@@ -1,15 +1,15 @@
-import { Button, Flex, HStack, Select, Text, useColorMode } from '@chakra-ui/react'
+import { Flex, HStack, Select, Text, useColorMode } from '@chakra-ui/react'
 import { FunctionComponent, ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import { MdLogout } from 'react-icons/md'
 import { ColorModeSwitcher } from '@/features/layout/components/color-mode-switcher'
 import { CustomNavLink } from '@/features/layout/components/custom-nav-link'
-import { useAuthContext } from '@/features/layout/contexts/auth-context'
+import { useAuthContext } from '@/contexts/auth-context'
+import { LogoutNavLink } from '@/features/layout/components/logout-nav-link'
 
 export const NavBar: FunctionComponent = (): ReactElement => {
 	const { colorMode } = useColorMode();		
 	const { t, i18n } = useTranslation();		
-	const { isLoggedIn, userName, logout } = useAuthContext();
+	const { isLoggedIn, username } = useAuthContext();
 		
 	const changeLanguage = (event: React.ChangeEvent<HTMLSelectElement>) => {
 		i18n.changeLanguage(event.target.value);
@@ -46,11 +46,11 @@ export const NavBar: FunctionComponent = (): ReactElement => {
 				<ColorModeSwitcher />	
 				{isLoggedIn ?
 					<HStack>
-						<Text>{t("Navigation.CurrentUser", {user: userName})}</Text>
-						<Button variant="ghost" onClick={logout} aria-label="logout"><MdLogout /></Button>
+						<Text>{t("Navigation.CurrentUser", {user: username})}</Text>						
+						<LogoutNavLink link="/logout" />
 					</HStack>
 					:
-					<CustomNavLink link="/login" text={t("Login.Button")} />
+					<CustomNavLink link="/login" text={t("Login.Button")} aria-label="login" />
 				}				
 			</HStack>			
 		</Flex>

@@ -1,32 +1,24 @@
 import { ErrorBoundary } from "react-error-boundary";
 import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
 import { Layout } from "@/features/layout/layout";
-import callApi from "@/lib/api";
+import { getUsers } from "@/features/auth/api/users";
 import Login from "@/app/pages/login";
 import { NotFound } from "@/app/pages/errors/not-found";
 import { RouterError } from "@/app/pages/errors/router-error";
 import { UsersPage } from "@/app/pages/users";
 import { Welcome } from "@/app/pages/welcome";
 import { useAuthStore } from "@/features/auth/stores/auth-store";
-import { AuthContext } from "@/features/layout/contexts/auth-context";
+import { Logout } from "@/app/pages/logout";
 
 export const AppRouter: React.FC = () => {
 	const authStore = useAuthStore();
-
+	
 	const router = createBrowserRouter([
 		{
 			path: '/',
 			element: 
 				<ErrorBoundary FallbackComponent={RouterError}>
-					<AuthContext.Provider 
-						value={{ 
-							isLoggedIn: authStore.isLoggedIn, 
-							userName: authStore.getUserName(), 
-							logout: authStore.logout, 
-							login: authStore.login 
-						}}>
-						<Layout />
-					</AuthContext.Provider>
+					<Layout authContext={{isLoggedIn: authStore.isLoggedIn, username: authStore.getUserName()}} />
 				</ErrorBoundary>,
 			errorElement: <RouterError />,				
 			children: [
@@ -43,7 +35,7 @@ export const AppRouter: React.FC = () => {
 					path: '/users',
 					element: <UsersPage />,
 					loader: async() => {											
-						const response = await callApi(`user`);
+						const response = await getUsers();
 						if (response.ok) {
 							var json = await response.json();
 							return json;
@@ -54,6 +46,10 @@ export const AppRouter: React.FC = () => {
 				{				
 					path: '/login',
 					element: !authStore.isLoggedIn ? <Login /> : <Navigate to={'/welcome'} replace={true} />
+				},			
+				{				
+					path: '/logout',					
+					element: <Logout />					
 				},			
 				{
 					path: '*',

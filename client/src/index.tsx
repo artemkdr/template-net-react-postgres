@@ -5,10 +5,6 @@ import theme from '@/app/themes/theme';
 
 import { AppRouter } from '@/app/router';
 import '@/app/i18n';
-import { initializeAuthStore } from '@/features/auth/stores/auth-store';
-import callApi from '@/lib/api';
-
-initializeAuthStore(callApi);
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

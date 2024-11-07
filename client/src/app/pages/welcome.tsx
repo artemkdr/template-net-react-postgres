@@ -6,7 +6,7 @@ import { useAuthStore } from '@/features/auth/stores/auth-store';
 export const Welcome: FunctionComponent = (): ReactElement => {	
     const { t } = useTranslation();
 	const authStore = useAuthStore();
-	
+		
 	return (
 		<VStack align={"left"} spacing={5}>
             <Heading as="h2" size="md">{t("Salutation", {user: authStore.getUserName()})}</Heading>			

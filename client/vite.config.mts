@@ -1,3 +1,5 @@
+/// <reference types="vitest" />
+
 import { defineConfig } from "vite"
 import tsconfigPaths from "vite-tsconfig-paths"
 import react from "@vitejs/plugin-react-swc";
@@ -8,4 +10,9 @@ export default defineConfig({
     outDir: "build",
     chunkSizeWarningLimit: 1000,
   },
+  test: {    
+    environment: 'jsdom',
+    globals: true,    
+    setupFiles: './src/tests/setup.ts',
+  }
 })

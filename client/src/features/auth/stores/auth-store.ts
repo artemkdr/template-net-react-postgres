@@ -1,3 +1,4 @@
+import { touch } from '@/features/auth/api/touch';
 import { jwtDecode } from 'jwt-decode';
 import { create } from 'zustand';
 
@@ -8,7 +9,7 @@ interface AuthStore {
     isLoading: boolean,
     token: string | null,     
 	login: (token: string) => void,
-	logout: () => void,
+	logout: () => void,    
     getUserName: () => string | null,
     getUserId: () => string | null,
     getUserRoles: () => string[] | null,
@@ -32,13 +33,17 @@ export const useAuthStore = create<AuthStore>((set) => ({
     isLoading: false,    
     token: null,        
 	login: (token) => {
-        set({ isLoggedIn: true, token: token });        
-        localStorage.setItem(tokenKey, token);        
+        if (!useAuthStore.getState().isLoggedIn) {
+            set({ isLoggedIn: true, token: token });        
+            localStorage.setItem(tokenKey, token);        
+        }
     },
 	logout: () => {
-        set({ isLoggedIn: false, token: null });
-        localStorage.removeItem(tokenKey);
-    },
+        if (useAuthStore.getState().isLoggedIn) {
+            set({ isLoggedIn: false, token: null });
+            localStorage.removeItem(tokenKey);
+        }
+    },    
     getUserName: () => {
         const token = useAuthStore.getState().token;
         if (token != null) {
@@ -82,13 +87,13 @@ export const useAuthStore = create<AuthStore>((set) => ({
 }));
 
 // Initialize store on app load
-export const initializeAuthStore = (callApi : Function) => async function() {
+(async function initializeAuthStore() {
     const storedToken = localStorage.getItem(tokenKey);    
     if (storedToken) {
         useAuthStore.getState().login(storedToken);        
         useAuthStore.setState({ isLoading: true });
         try {
-            const response = await callApi('touch');                        
+            const response = await touch(storedToken);
             if (response.ok)
                 useAuthStore.getState().login(storedToken);
             else
@@ -98,4 +103,4 @@ export const initializeAuthStore = (callApi : Function) => async function() {
         }
         useAuthStore.setState({ isLoading: false });
     }
-};
+  })();

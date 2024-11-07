@@ -1,18 +1,15 @@
 import config from "@/config/config";
 
-export const callApi = async (endpoint: string, options: object = {}, token : string | null = null, toast : any = null) => {  
-  const toastId = toast != null ? toast({ title: '...', status: 'info' }) : null;  
-  
-  const apiToken = token;
+export const callApi = async (endpoint: string, options: object = {}, authToken : string | null = null) => {  
+  const token = authToken;
   if (endpoint != null && !endpoint.startsWith("http")) 
   {
       endpoint = `${config.API_URL}/${endpoint}`;
   }      
-  const authData : object = apiToken ?  { headers: { Authorization: `Bearer ${apiToken}` }} : {};
+  const authData : object = token ?  { headers: { Authorization: `Bearer ${token}` }} : {};
   const data : object = { ...authData, ...options };
   try {
-    const response = await fetch(endpoint, data);
-    toast != null && typeof(toast.close) == "function" && toast.close(toastId);
+    const response = await fetch(endpoint, data);    
     if (response.ok) {
       return response;
     } 

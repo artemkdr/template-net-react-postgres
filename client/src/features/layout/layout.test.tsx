@@ -1,5 +1,6 @@
 import { describe, it, vi } from "vitest";
 
+
 vi.mock("@/lib/api");
 
 vi.mock("react-i18next", () => ({
@@ -14,15 +15,19 @@ vi.mock("react-i18next", () => ({
     },    
 }));
 
-/*
+
 const mockedUseNavigate = vi.fn();
 const mockedUseNavigation = vi.fn();
-vi.mock(import("react-router-dom"), async (importOriginal) => {
-    const actual = await importOriginal()
-    return {
-        ...actual        
-    }
-});*/
+vi.mock("react-router-dom", async () => {
+  const mod = await vi.importActual<typeof import("react-router-dom")>(
+    "react-router-dom"
+  );
+  return {
+    ...mod,
+    useNavigate: () => mockedUseNavigate,
+    useNavigation: () => mockedUseNavigation,
+  };
+});
 
 
 describe("<Layout />", () => {

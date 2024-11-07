@@ -14,7 +14,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import { MdEmail, MdPassword } from "react-icons/md";
 import { useNavigate } from 'react-router-dom';
-import callApi from '@/lib/api';
+import { login as apiLogin } from '@/features/auth/api/login';
 import { useAuthStore } from '@/features/auth/stores/auth-store';
 
 const Login: FunctionComponent = () => {
@@ -36,11 +36,7 @@ const Login: FunctionComponent = () => {
   const handleLogin = async () => {
     setIsLoading(true);
         
-    const response = await callApi(`login`, { 
-      method: 'POST', 
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ Username: username, Password: password }) 
-    });    
+    const response = await apiLogin(username, password);
     if (response.ok) {
       setErrorMessage('');      
       let token = (await response.json())?.token;      
@@ -54,9 +50,6 @@ const Login: FunctionComponent = () => {
       }      
     } else {
       logout();
-      console.log(username + " - " + password);
-      console.log(response);
-      console.log(response.status);
       if (response.status === 401) {
         setErrorMessage(t("Message.LoginErrorWrongCredentials"));
       } else {
