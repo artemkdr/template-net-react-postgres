@@ -1,41 +1,33 @@
-import { describe, it, vi } from "vitest";
-
-vi.mock("@/lib/api");
-
-/*
-jest.mock("react-i18next", () => ({
-    I18nextProvider: jest.fn(),    
-    useTranslation: () => ({ t: (key: string) => { return key } }),
-}));
-
-const mockedUseNavigate = jest.fn();
-jest.mock('react-router-dom', () => ({
-    ...jest.requireActual('react-router-dom') as any,
-    useNavigate: () => mockedUseNavigate,
-}));*/
+import Login from "@/app/pages/login";
+import { useAuthStore } from "@/features/auth/stores/auth-store";
+import { mockedUseNavigate } from "@/tests/setup";
+import { ChakraProvider } from "@chakra-ui/react";
+import { act, fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
+import { describe, it } from "vitest";
 
 describe("<Login />", () => {
     it("renders Login page", async () => {              
-        /*const { container } = render(<MemoryRouter><Login /></MemoryRouter>);
+        const { container } = render(<ChakraProvider><MemoryRouter><Login /></MemoryRouter></ChakraProvider>);
         const loginInput = container.querySelector("#login");
         const passwordInput = container.querySelector("#password");
         const button = await screen.getByRole("button");
         expect(loginInput).not.toBeNull();
         expect(passwordInput).not.toBeNull();
-        expect(button).not.toBeNull();*/
+        expect(button).not.toBeNull();
     });
 
-    /*it("shows a login error on other than 401 error", async () => {              
-        render(<MemoryRouter><Login /></MemoryRouter>);
+    it("shows a login error on other than 401 error", async () => {              
+        render(<ChakraProvider><MemoryRouter><Login /></MemoryRouter></ChakraProvider>);
         const button = await screen.getByRole("button");
         
         await act(() => { fireEvent.click(button) });
-        const error = await screen.getByText("Message.LoginError");
+        const error = await screen.getByText("Message.LoginError");        
         expect(error).not.toBeNull();
     });
 
     it("shows a credentials error on wrong credentials", async () => {              
-        const { container } = render(<MemoryRouter><Login /></MemoryRouter>);
+        const { container } = render(<ChakraProvider><MemoryRouter><Login /></MemoryRouter></ChakraProvider>);
         const loginInput = container.querySelector("#login");
         const passwordInput = container.querySelector("#password");
         const button = await screen.getByRole("button");
@@ -48,7 +40,7 @@ describe("<Login />", () => {
     });
 
     it("logins user on correct credentials", async () => {              
-        const { container } = render(<MemoryRouter><Login /></MemoryRouter>);
+        const { container } = render(<ChakraProvider><MemoryRouter><Login /></MemoryRouter></ChakraProvider>);
         const loginInput = container.querySelector("#login");
         const passwordInput = container.querySelector("#password");
         const button = await screen.getByRole("button");
@@ -61,5 +53,5 @@ describe("<Login />", () => {
             expect(useAuthStore.getState().isLoggedIn).toEqual(true);
             expect(useAuthStore.getState().getUserName()).toEqual("user1");
         });        
-    });*/
+    });
 });

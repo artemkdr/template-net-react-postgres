@@ -1,6 +1,6 @@
 import config from "@/config/config";
 
-export const callApi = async (endpoint: string, options: object = {}, authToken : string | null = null) => {  
+export const callApi = async (endpoint: string, options: object = {}, authToken : string | null = null) => {    
   const token = authToken;
   if (endpoint != null && !endpoint.startsWith("http")) 
   {
@@ -14,9 +14,7 @@ export const callApi = async (endpoint: string, options: object = {}, authToken 
       return response;
     } 
     if (response.status === 401) { // Unauthorized (token likely expired)
-      // Optionally, redirect to login or handle token refresh here
-      console.error("Token expired, please log in again");    
-      console.error(response);
+      // Optionally, redirect to login or handle token refresh here      
     }    
     return response;    
   } catch (error : any) {    

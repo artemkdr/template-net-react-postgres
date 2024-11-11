@@ -1,4 +1,4 @@
-import callApi from "@/features/auth/api/api"
+import callApi from "@/lib/api/api"
 
 export const login = async (username : string, password: string) => callApi("login", { 
     method: 'POST', 

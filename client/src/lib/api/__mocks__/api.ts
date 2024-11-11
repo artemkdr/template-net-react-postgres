@@ -2,6 +2,7 @@
 export const testValidToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6InVzZXIxIiwibmFtZWlkIjoidXNlcjEiLCJuYmYiOjE3Mjg2NTA5MzYsImV4cCI6Mjc2NDg2NTA5MzYsImlhdCI6MTcyODY1MDkzNiwiaXNzIjoiJEpXVF9JU1NVRVIiLCJhdWQiOiIkSldUX0FVRElFTkNFIn0.9lNmvx0NivF2Ne59FohjQXTiHohIzVu7Z0gZ_L2Dxio";
 
 export const callApi = async (endpoint: string, options: any = {}) => {
+    console.log(endpoint + ", " + options?.body);
     if (options?.method === "POST") {
         if (endpoint === `login`) {             
             let body : any = {};
