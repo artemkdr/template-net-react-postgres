@@ -12,7 +12,7 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "preview": "vite preview",
-    "prepare": "cd.. && husky client/.husky"
+    "prepare": "cd .. && husky client/.husky"
   },  
   "dependencies": {
     "@chakra-ui/react": "^2.8.2",
