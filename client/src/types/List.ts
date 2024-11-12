@@ -1,5 +1,5 @@
 
-export type List = {
+export interface List {
     Page: number;
     PageSize: number;
     TotalPages: number;

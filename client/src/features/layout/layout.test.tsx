@@ -17,7 +17,8 @@ describe("<Layout />", () => {
     it("check that dark/light mode switcher works", async () => {        
         render(<ChakraProvider><MemoryRouter><Layout authContext={mockedAuthContext} /></MemoryRouter></ChakraProvider>);        
         const darkModeButton = screen.getByLabelText(new RegExp("switch to (dark|light) mode", "i"));
-        const newMode = darkModeButton.getAttribute("aria-label") != null && darkModeButton.getAttribute("aria-label")!.indexOf(" dark") >= 0 ? "dark" : "light";
+        const ariaLabel = darkModeButton.getAttribute("aria-label") ?? "";
+        const newMode = ariaLabel.indexOf(" dark") >= 0 ? "dark" : "light";
         act(() => fireEvent.click(darkModeButton));
         await waitFor(() => {
             expect(document.querySelector(`body.chakra-ui-${newMode}`)).not.toBeNull()

@@ -3,7 +3,7 @@ export enum UserStatus {
     Deleted = "Deleted"
 }
 
-export type User = {
+export interface User {
     Username: string,
     Status: UserStatus,
     Vars: unknown,
@@ -41,8 +41,8 @@ export const getUserStatusColor = (status: UserStatus) : string => {
 export const convertDataToUserList = (listData : unknown) => {
     const list = [] as User[];
     if (listData instanceof Array) {
-        for (let i = 0; i < listData.length; i++) {				
-            const u = convertToUser(listData[i]);
+        for (const row of listData) {				
+            const u = convertToUser(row);
             if (u != null && u.Username != null) {
                 list.push(u);
             }

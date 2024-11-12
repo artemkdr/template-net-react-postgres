@@ -11,7 +11,7 @@ interface IError {
 	cause?: number;
 };
 
-type RouterErrorProps = {
+interface RouterErrorProps {
 	error?: Error; // Make the error prop optional	
 };
 
