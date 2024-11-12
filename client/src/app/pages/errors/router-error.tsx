@@ -5,6 +5,12 @@ import { isRouteErrorResponse, useNavigate, useRouteError } from 'react-router-d
 import Login from '@/app/pages/login';
 import { useAuthStore } from '@/features/auth/stores/auth-store';
 
+interface IError {
+	error?: Error;
+	status?: number;
+	cause?: number;
+};
+
 type RouterErrorProps = {
 	error?: Error; // Make the error prop optional	
 };
@@ -24,7 +30,7 @@ export const RouterError = ({ error } : RouterErrorProps) => {
 		
 	if (isRouteErrorResponse(displayedError)) {
 		// error is type `ErrorResponse`
-		errorMessage = (displayedError as any).error?.message || displayedError.statusText;
+		errorMessage = (displayedError as IError)?.error?.message || displayedError.statusText;
 	} else if (displayedError instanceof Error) {
 		errorMessage = displayedError.message;
 	} else if (typeof displayedError === 'string') {
@@ -32,11 +38,11 @@ export const RouterError = ({ error } : RouterErrorProps) => {
 	} else {		
 		errorMessage = t('Message.UnknownError');
 	}	
-	const isAuthError = (displayedError as any)?.status === 401 || (displayedError as any)?.cause === 401 || !authStore.isLoggedIn;
+	const isAuthError = (displayedError as IError)?.status === 401 || (displayedError as IError)?.cause === 401 || !authStore.isLoggedIn;
 	if (isAuthError) {
 		return <Login />;
 	}
-	if ((displayedError as any)?.status === 403 || (displayedError as any)?.cause === 403)
+	if ((displayedError as IError)?.status === 403 || (displayedError as IError)?.cause === 403)
 		errorMessage = "ForbidError";
 	return (		
 		<AlertDialog isOpen={isOpened} onClose={onClose} leastDestructiveRef={cancelRef}>

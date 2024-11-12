@@ -23,9 +23,9 @@ interface JwtPayload {
     role: string[],
     aud: string,
     iss: string,
-    exp: Number,
-    iat: Number,
-    nbf: Number
+    exp: number,
+    iat: number,
+    nbf: number
 }
 
 export const useAuthStore = create<AuthStore>((set) => ({
@@ -98,7 +98,7 @@ export const useAuthStore = create<AuthStore>((set) => ({
                 useAuthStore.getState().login(storedToken);
             else
                 useAuthStore.getState().logout();
-        } catch (err) {
+        } catch {
             useAuthStore.getState().logout();
         }
         useAuthStore.setState({ isLoading: false });

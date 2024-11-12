@@ -4,15 +4,22 @@ export type List = {
     PageSize: number;
     TotalPages: number;
     Total: number;
-    List: any[];
+    List: object[];
 }
 
-export const convertDataToList = (data : any) => {
-    var list = {} as List;
-    list.Page = parseInt(data?.page);
-    list.PageSize = parseInt(data?.pageSize);
-    list.TotalPages = parseInt(data?.totalPages);
-    list.Total = parseInt(data?.total);
-    list.List = data?.list instanceof Array ? data?.list : [] as any[];
+export const convertDataToList = (data : unknown) => {
+    const listData = data as {
+        page: number;
+        pageSize: number;
+        totalPages: number;
+        total: number;
+        list: object[]
+    };
+    const list = {} as List;
+    list.Page = listData?.page;
+    list.PageSize = listData?.pageSize;
+    list.TotalPages = listData?.totalPages;
+    list.Total = listData?.total;
+    list.List = listData?.list ?? [] as object[];
     return list;
 }

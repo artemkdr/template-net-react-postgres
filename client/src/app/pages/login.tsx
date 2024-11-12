@@ -1,4 +1,4 @@
-import { FunctionComponent, useState } from 'react';
+import { FunctionComponent, KeyboardEvent, useState } from 'react';
 
 import {
   Button,
@@ -27,19 +27,13 @@ const Login: FunctionComponent = () => {
   const logout = useAuthStore((s) => s.logout);
   const nav = useNavigate();
 
-  const keyDownHandler = (evt : any) => {    
-    if (evt.key === "Enter") {
-      handleLogin();
-    }
-  }
-
   const handleLogin = async () => {
     setIsLoading(true);
         
     const response = await apiLogin(username, password);
     if (response.ok) {
       setErrorMessage('');      
-      let token = (await response.json())?.token;      
+      const token = (await response.json())?.token;      
       if (token != null) {
         login(token);              
         // reload last path  
@@ -58,6 +52,12 @@ const Login: FunctionComponent = () => {
     }
     setIsLoading(false);
   };
+
+  const keyDownHandler = (evt : KeyboardEvent) => {    
+    if (evt.key === "Enter") {
+      handleLogin();
+    }
+  }
 
   return(
     <Center mt={10}>

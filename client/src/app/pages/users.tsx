@@ -6,7 +6,7 @@ import { convertDataToUserList, User } from '@/features/users/types/User';
 import { convertDataToList } from '@/types/List';
 
 export const UsersPage: FunctionComponent = (): ReactElement => {
-	const data : any = useLoaderData();        
+	const data : unknown = useLoaderData();        
     const { t } = useTranslation();
 	const [users, setUsers] = useState<User[]>([] as User[]);
 

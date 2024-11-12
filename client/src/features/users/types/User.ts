@@ -1,23 +1,30 @@
-export type User = {
-    Username: string,
-    Status: UserStatus,
-    Vars: any,
-    CreateDate: Date,
-    ModifyDate: Date
-}
-
 export enum UserStatus {
     Active = "Active",
     Deleted = "Deleted"
 }
 
-export const convertToUser = (data : any) => {
-    var user = {} as User;    
-    user.Username = data?.username?.toString();
-    user.Status = data?.status as UserStatus;    
-    user.Vars = data?.vars;
-    user.CreateDate = new Date(data?.createDate);
-    user.ModifyDate = new Date(data?.modifyDate);
+export type User = {
+    Username: string,
+    Status: UserStatus,
+    Vars: unknown,
+    CreateDate: Date,
+    ModifyDate: Date
+}
+
+export const convertToUser = (data : unknown) => {
+    const userData = data as {
+        username: string,
+        status: string,
+        vars: unknown,
+        createDate: string,
+        modifyDate: string
+    };
+    const user = {} as User;    
+    user.Username = userData?.username?.toString();
+    user.Status = userData?.status as UserStatus;    
+    user.Vars = userData?.vars;
+    user.CreateDate = new Date(userData?.createDate);
+    user.ModifyDate = new Date(userData?.modifyDate);
     return user;
 }
 
@@ -31,8 +38,8 @@ export const getUserStatusColor = (status: UserStatus) : string => {
     return "";
 }
 
-export const convertDataToUserList = (listData : any) => {
-    let list = [] as User[];
+export const convertDataToUserList = (listData : unknown) => {
+    const list = [] as User[];
     if (listData instanceof Array) {
         for (let i = 0; i < listData.length; i++) {				
             const u = convertToUser(listData[i]);

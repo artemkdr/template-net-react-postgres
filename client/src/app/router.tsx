@@ -37,7 +37,7 @@ export const AppRouter: React.FC = () => {
 					loader: async() => {											
 						const response = await getUsers();
 						if (response.ok) {
-							var json = await response.json();
+							const json = await response.json();
 							return json;
 						}
 						throw new Error("LoaderError");

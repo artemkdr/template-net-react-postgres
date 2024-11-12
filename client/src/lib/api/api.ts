@@ -17,8 +17,9 @@ export const callApi = async (endpoint: string, options: object = {}, authToken 
       // Optionally, redirect to login or handle token refresh here      
     }    
     return response;    
-  } catch (error : any) {    
-    return {status: 501, message: error?.message, error: error, ok: false, json: () => { return JSON.parse("{}")}};
+  } catch (error : unknown) {    
+    const msg = typeof  error === "object" && error !== null && "message" in error ? error.message : error as string;
+    return {status: 501, message: msg, error: error, ok: false, json: () => { return JSON.parse("{}")}};
   }  
 }
 
