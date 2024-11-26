@@ -21,7 +21,7 @@
     "@fontsource/roboto-condensed": "^5.1.0",
     "@remix-run/router": "^1.20.0",
     "base-64": "^1.0.0",
-    "framer-motion": "^11.11.11",
+    "framer-motion": "^11.11.17",
     "i18n": "^0.15.1",
     "i18next": "^23.16.4",
     "i18next-browser-languagedetector": "^8.0.0",
