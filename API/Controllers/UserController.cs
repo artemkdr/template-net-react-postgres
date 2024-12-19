@@ -31,7 +31,7 @@ public class UserController : BaseController
     {
     }
     
-    [Route("user/{username}")]    
+    [Route("users/{username}")]    
     [Authorize]
     [HttpGet]
     public IActionResult GetUser(string username)
@@ -46,7 +46,7 @@ public class UserController : BaseController
         });        
     }
 
-    [Route("user")]
+    [Route("users")]
     [Authorize]
     [HttpGet]
     public IActionResult GetUsers(string? username = null, string? status = null, int page = 1, int limit = 0) 
