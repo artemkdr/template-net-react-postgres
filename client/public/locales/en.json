@@ -19,7 +19,7 @@
     },
     "Message": {
         "Success": "Hoorah!",
-        "Error": "Error",        
+        "Error": "Error",
         "UnknownError": "Something went wrong, please send a screenshot to the dev team.",
         "RouterError": "Oups",
         "LoaderError": "Data loading problem... Try to relogin, if nothing helps contact the dev team.",

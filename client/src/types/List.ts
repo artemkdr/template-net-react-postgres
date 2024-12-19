@@ -1,4 +1,3 @@
-
 export interface List {
     Page: number;
     PageSize: number;
@@ -7,19 +6,19 @@ export interface List {
     List: object[];
 }
 
-export const convertDataToList = (data : unknown) => {
+export const convertDataToList = (data: unknown) => {
     const listData = data as {
         page: number;
         pageSize: number;
         totalPages: number;
         total: number;
-        list: object[]
+        list: object[];
     };
     const list = {} as List;
     list.Page = listData?.page;
     list.PageSize = listData?.pageSize;
     list.TotalPages = listData?.totalPages;
     list.Total = listData?.total;
-    list.List = listData?.list ?? [] as object[];
+    list.List = listData?.list ?? ([] as object[]);
     return list;
-}
+};
