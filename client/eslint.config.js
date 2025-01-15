@@ -25,7 +25,7 @@ export default tseslint.config(
         },
         rules: {
             ...reactHooks.configs.recommended.rules,
-            camelcase: 'error'            
+            camelcase: 'error',
         },
     }
 );

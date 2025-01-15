@@ -94,10 +94,8 @@ export const useAuthStore = create<AuthStore>((set) => ({
         useAuthStore.setState({ isLoading: true });
         try {
             const response = await touch(storedToken);
-            if (response.success) 
-                useAuthStore.getState().login(storedToken);
-            else 
-                useAuthStore.getState().logout();
+            if (response.success) useAuthStore.getState().login(storedToken);
+            else useAuthStore.getState().logout();
         } catch {
             useAuthStore.getState().logout();
         }

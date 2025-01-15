@@ -9,8 +9,10 @@
  * @returns The converted integer value.
  */
 export const toInt = (value: unknown): number => {
-    return typeof(value) == 'number' ? Math.round(value) : (parseInt(String(value)) || 0);
-}
+    return typeof value == 'number'
+        ? Math.round(value)
+        : parseInt(String(value)) || 0;
+};
 
 /**
  * Converts a given value to a number.
@@ -23,15 +25,15 @@ export const toInt = (value: unknown): number => {
  * @returns The converted number value.
  */
 export const toNumber = (value: unknown): number => {
-    return typeof(value) == 'number' ? value : (Number(String(value)) || 0);
-}
+    return typeof value == 'number' ? value : Number(String(value)) || 0;
+};
 
 /**
  * Converts a given value to a string.
- * 
+ *
  * @param value - The value to convert to a string.
  * @returns The converted string value.
  */
 export const toString = (value: unknown): string => {
     return String(value);
-}
+};

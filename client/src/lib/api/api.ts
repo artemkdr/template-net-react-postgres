@@ -12,7 +12,7 @@ export const callApi = async <T>(
     }
     const authData: object = token
         ? { headers: { Authorization: `Bearer ${token}` } }
-        : {};    ;
+        : {};
     return await fetchJson<T>(endpoint, { ...authData, ...options });
 };
 

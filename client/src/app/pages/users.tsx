@@ -19,12 +19,15 @@ export const UsersPage = (): ReactElement => {
             <Heading as="h2" size="md">
                 {t('Users.Title')}
             </Heading>
-            <SimpleSuspense fallback={<Text>{t('Loading')}</Text>} emptyText={t('Users.Empty')}>
+            <SimpleSuspense
+                fallback={<Text>{t('Loading')}</Text>}
+                emptyText={t('Users.Empty')}
+            >
                 {users?.map((user) => (
                     <Text key={user.Username}>
                         {user.Username} ({user.Status})
                     </Text>
-                ))}                
+                ))}
             </SimpleSuspense>
         </VStack>
     );

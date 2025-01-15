@@ -24,9 +24,15 @@ export const callApi = async (
                 });
             } else if (body.Username?.length > 0 && body.Password?.length > 0) {
                 // non empty username and password
-                return Promise.resolve({ success: false, error: { status: 401 }});
+                return Promise.resolve({
+                    success: false,
+                    error: { status: 401 },
+                });
             } else {
-                return Promise.resolve({ success: false, error: { status: 400 }});
+                return Promise.resolve({
+                    success: false,
+                    error: { status: 400 },
+                });
             }
         }
     }

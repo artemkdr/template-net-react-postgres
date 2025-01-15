@@ -30,7 +30,7 @@ const Login: FunctionComponent = () => {
     const handleLogin = async () => {
         setIsLoading(true);
 
-        const response = await apiLogin<{token: string}>(username, password);
+        const response = await apiLogin<{ token: string }>(username, password);
         if (response.success) {
             setErrorMessage('');
             const token = response.data?.token;
