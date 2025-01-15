@@ -34,7 +34,7 @@ namespace API.Tests.Controllers
 
             // Assert
             var okResult = Assert.IsType<OkObjectResult>(result);
-            var listDto = Assert.IsType<ListDTO>(okResult.Value);
+            var listDto = Assert.IsType<ListDTO<UserDTO>>(okResult.Value);
 
             Assert.Equal(3, listDto.Total);
             Assert.Equal(1, listDto.Page);
@@ -60,7 +60,7 @@ namespace API.Tests.Controllers
 
             // Assert - returns 1 user
             var okResult = Assert.IsType<OkObjectResult>(result);
-            var listDto = Assert.IsType<ListDTO>(okResult.Value);
+            var listDto = Assert.IsType<ListDTO<UserDTO>>(okResult.Value);
 
             Assert.Equal(1, listDto.Total);            
             Assert.Equal(1, listDto.List?.Count());
@@ -71,7 +71,7 @@ namespace API.Tests.Controllers
 
             // Assert - returns 1 user
             okResult = Assert.IsType<OkObjectResult>(result);
-            listDto = Assert.IsType<ListDTO>(okResult.Value);
+            listDto = Assert.IsType<ListDTO<UserDTO>>(okResult.Value);
 
             Assert.Equal(1, listDto.Total);            
             Assert.Equal(1, listDto.List?.Count());    
@@ -82,7 +82,7 @@ namespace API.Tests.Controllers
 
             // Assert - returns 4 users with 'ser' in username
             okResult = Assert.IsType<OkObjectResult>(result);
-            listDto = Assert.IsType<ListDTO>(okResult.Value);
+            listDto = Assert.IsType<ListDTO<UserDTO>>(okResult.Value);
 
             Assert.Equal(4, listDto.Total);            
             Assert.Equal(4, listDto.List?.Count());
@@ -93,7 +93,7 @@ namespace API.Tests.Controllers
 
             // Assert - returns 4 users with 'ser' in username
             okResult = Assert.IsType<OkObjectResult>(result);
-            listDto = Assert.IsType<ListDTO>(okResult.Value);
+            listDto = Assert.IsType<ListDTO<UserDTO>>(okResult.Value);
 
             Assert.Equal(4, listDto.Total);            
             Assert.Equal(4, listDto.List?.Count());
@@ -104,7 +104,7 @@ namespace API.Tests.Controllers
 
             // Assert - returns 0 users with 'yyyyyyyy' in username
             okResult = Assert.IsType<OkObjectResult>(result);
-            listDto = Assert.IsType<ListDTO>(okResult.Value);
+            listDto = Assert.IsType<ListDTO<UserDTO>>(okResult.Value);
 
             Assert.Equal(0, listDto.Total);            
             Assert.Equal(0, listDto.List?.Count());    
@@ -129,7 +129,7 @@ namespace API.Tests.Controllers
 
             // Assert - returns 1st page
             var okResult = Assert.IsType<OkObjectResult>(result);
-            var listDto = Assert.IsType<ListDTO>(okResult.Value);
+            var listDto = Assert.IsType<ListDTO<UserDTO>>(okResult.Value);
 
             Assert.Equal(6, listDto.Total);            
             Assert.Equal(1, listDto.Page);
@@ -144,7 +144,7 @@ namespace API.Tests.Controllers
 
             // Assert - returns 2nd page
             okResult = Assert.IsType<OkObjectResult>(result);
-            listDto = Assert.IsType<ListDTO>(okResult.Value);
+            listDto = Assert.IsType<ListDTO<UserDTO>>(okResult.Value);
 
             Assert.Equal(6, listDto.Total);            
             Assert.Equal(2, listDto.Page);
@@ -159,7 +159,7 @@ namespace API.Tests.Controllers
 
             // Assert - returns the last page
             okResult = Assert.IsType<OkObjectResult>(result);
-            listDto = Assert.IsType<ListDTO>(okResult.Value);
+            listDto = Assert.IsType<ListDTO<UserDTO>>(okResult.Value);
 
             Assert.Equal(6, listDto.Total);            
             Assert.Equal(3, listDto.Page);
@@ -174,7 +174,7 @@ namespace API.Tests.Controllers
 
             // Assert - returns last page if the page index exceeds 
             okResult = Assert.IsType<OkObjectResult>(result);
-            listDto = Assert.IsType<ListDTO>(okResult.Value);
+            listDto = Assert.IsType<ListDTO<UserDTO>>(okResult.Value);
 
             Assert.Equal(6, listDto.Total);            
             Assert.Equal(3, listDto.Page);
@@ -189,7 +189,7 @@ namespace API.Tests.Controllers
 
             // Assert - returns last page if the page index exceeds 
             okResult = Assert.IsType<OkObjectResult>(result);
-            listDto = Assert.IsType<ListDTO>(okResult.Value);
+            listDto = Assert.IsType<ListDTO<UserDTO>>(okResult.Value);
 
             Assert.Equal(6, listDto.Total);            
             Assert.Equal(2, listDto.Page);

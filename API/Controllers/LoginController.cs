@@ -22,6 +22,8 @@ public class LoginController : BaseController
 
     [Route("login")]
     [HttpPost]
+    [ProducesResponseType(typeof(TokenDTO), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status401Unauthorized)]
     public IActionResult Login(LoginDTO loginDto)
     {
         var token = _authenticator.Authenticate(_userContext.Items.Find(loginDto.Username), loginDto.Password);

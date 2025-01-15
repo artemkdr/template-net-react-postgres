@@ -60,10 +60,14 @@ public interface IBaseDTO {
 
 }
 
-public class ListDTO : IBaseDTO {
+public class SuccessDTO : IBaseDTO {
+    public bool Success { get; set; }
+}   
+
+public class ListDTO<T> : IBaseDTO {
     public int Page { get; set; }
     public int PageSize { get; set; }
     public int Total { get; set; }
     public int TotalPages { get; set; }
-    public object[]? List { get; set; }
+    public T[]? List { get; set; }
 }

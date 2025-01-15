@@ -17,8 +17,9 @@ public class HealthController : ControllerBase
 
     [Route("health")]    
     [HttpGet]
+    [ProducesResponseType(typeof(SuccessDTO), StatusCodes.Status200OK)]
     public IActionResult Get()
     {
-        return Ok(new { success = true });
+        return Ok(new SuccessDTO() { Success = true });
     }
 }

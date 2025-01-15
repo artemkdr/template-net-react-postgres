@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using API.Discovery;
+using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,7 +18,13 @@ builder.Logging.ClearProviders();
 builder.Logging.AddNLog();
 
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(options => {
+    // produce 'application/json' by default
+    options.Filters.Add(new ProducesAttribute("application/json"));
+}).AddJsonOptions(options => {
+    // camelCase JSON by default
+    options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;    
+});
 
 builder.Services.AddCors(options =>
 {

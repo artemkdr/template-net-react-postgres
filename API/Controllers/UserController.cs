@@ -6,21 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
 
-public class UserDTOLight : IBaseDTO
-{
-    public string? Username { get; set; }
-}
-
-public class UserDTO : UserDTOLight
+public class UserDTO : IBaseDTO
 {   
+    public string? Username { get; set; }
     public JsonDocument? Vars { get; set;}
-    
     public string? Status { get; set; }
-}
-
-public class UserDTOFull : UserDTO 
-{
-    public string? Password { get; set; }
 }
 
 [ApiController]
@@ -30,10 +20,12 @@ public class UserController : BaseController
         : base(configuration, userContext)
     {
     }
-    
+        
     [Route("users/{username}")]    
     [Authorize]
     [HttpGet]
+    [ProducesResponseType(typeof(UserDTO), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
     public IActionResult GetUser(string username)
     {        
         var item = _userContext.Items.Find(username);
@@ -45,15 +37,16 @@ public class UserController : BaseController
             Status = item.Status.ToString()
         });        
     }
-
+    
     [Route("users")]
     [Authorize]
-    [HttpGet]
+    [HttpGet]    
+    [ProducesResponseType(typeof(ListDTO<UserDTO>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
     public IActionResult GetUsers(string? username = null, string? status = null, int page = 1, int limit = 0) 
     {
         if (page < 1) page = 1;
         if (limit < 1) limit = Math.Max(limit, LIST_LIMIT);
-
         
         var query = _userContext.Items.AsQueryable();
 
@@ -80,7 +73,7 @@ public class UserController : BaseController
                         })
                         .ToList();
 
-        return Ok(new ListDTO {
+        return Ok(new ListDTO<UserDTO>() {
             Page = page,
             PageSize = limit,
             Total = totalCount,

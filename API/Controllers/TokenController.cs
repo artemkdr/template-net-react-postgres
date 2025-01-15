@@ -19,6 +19,7 @@ public class TokenController : ControllerBase
     [Route("touch")]
     [Authorize]
     [HttpGet]
+    [ProducesResponseType(StatusCodes.Status200OK)]
     public IActionResult Get()
     {
         return Ok();
