@@ -1,6 +1,7 @@
 import config from '@/config/config';
+import fetchJson from '@/lib/api/fetch-json';
 
-export const callApi = async (
+export const callApi = async <T>(
     endpoint: string,
     options: object = {},
     authToken: string | null = null
@@ -11,33 +12,8 @@ export const callApi = async (
     }
     const authData: object = token
         ? { headers: { Authorization: `Bearer ${token}` } }
-        : {};
-    const data: object = { ...authData, ...options };
-    try {
-        const response = await fetch(endpoint, data);
-        if (response.ok) {
-            return response;
-        }
-        if (response.status === 401) {
-            // Unauthorized (token likely expired)
-            // Optionally, redirect to login or handle token refresh here
-        }
-        return response;
-    } catch (error: unknown) {
-        const msg =
-            typeof error === 'object' && error !== null && 'message' in error
-                ? error.message
-                : (error as string);
-        return {
-            status: 501,
-            message: msg,
-            error: error,
-            ok: false,
-            json: () => {
-                return JSON.parse('{}');
-            },
-        };
-    }
+        : {};    ;
+    return await fetchJson<T>(endpoint, { ...authData, ...options });
 };
 
 export default callApi;

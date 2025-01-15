@@ -20,8 +20,9 @@ public class TokenController : ControllerBase
     [Authorize]
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(SuccessDTO), StatusCodes.Status200OK)]
     public IActionResult Get()
     {
-        return Ok();
+        return Ok(new SuccessDTO() { Success = true });
     }
 }

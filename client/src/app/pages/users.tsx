@@ -1,17 +1,17 @@
-import { convertDataToUserList, User } from '@/features/users/types/User';
-import { convertDataToList } from '@/types/List';
+import { SimpleSuspense } from '@/components/simple-suspense';
+import { User } from '@/features/users/types/user';
 import { Heading, Text, VStack } from '@chakra-ui/react';
-import { FunctionComponent, ReactElement, useEffect, useState } from 'react';
+import { ReactElement, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLoaderData } from 'react-router-dom';
 
-export const UsersPage: FunctionComponent = (): ReactElement => {
-    const data: unknown = useLoaderData();
+export const UsersPage = (): ReactElement => {
+    const data = useLoaderData() as User[];
     const { t } = useTranslation();
-    const [users, setUsers] = useState<User[]>([] as User[]);
+    const [users, setUsers] = useState<User[] | undefined>(undefined);
 
     useEffect(() => {
-        setUsers(convertDataToUserList(convertDataToList(data)?.List));
+        setUsers(data);
     }, [data]);
 
     return (
@@ -19,15 +19,13 @@ export const UsersPage: FunctionComponent = (): ReactElement => {
             <Heading as="h2" size="md">
                 {t('Users.Title')}
             </Heading>
-            {users.length > 0 ? (
-                users.map((user) => (
+            <SimpleSuspense fallback={<Text>{t('Loading')}</Text>} emptyText={t('Users.Empty')}>
+                {users?.map((user) => (
                     <Text key={user.Username}>
                         {user.Username} ({user.Status})
                     </Text>
-                ))
-            ) : (
-                <Text>{t('Users.Empty')}</Text>
-            )}
+                ))}                
+            </SimpleSuspense>
         </VStack>
     );
 };

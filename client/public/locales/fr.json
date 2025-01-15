@@ -1,6 +1,7 @@
 {
     "Title": "Template .NET-React-Postgres",
     "Salutation": "Salut {{user}}!",
+    "Loading": "Chargement...",
     "Navigation": {
         "Home": "Accueil",
         "Users": "Utilisateurs",

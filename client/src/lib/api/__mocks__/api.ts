@@ -19,19 +19,18 @@ export const callApi = async (
             }
             if (body.Username === 'user1' && body.Password === 'password1') {
                 return Promise.resolve({
-                    ok: true,
-                    status: 200,
-                    json: async () => ({ token: testValidToken }),
+                    success: true,
+                    data: { token: testValidToken },
                 });
             } else if (body.Username?.length > 0 && body.Password?.length > 0) {
                 // non empty username and password
-                return Promise.resolve({ ok: false, status: 401 });
+                return Promise.resolve({ success: false, error: { status: 401 }});
             } else {
-                return Promise.resolve({ ok: false, status: 400 });
+                return Promise.resolve({ success: false, error: { status: 400 }});
             }
         }
     }
-    return Promise.resolve({ status: 200, ok: true, json: async () => ({}) });
+    return Promise.resolve({ success: true, data: {} });
 };
 
 export default callApi;

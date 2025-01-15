@@ -7,6 +7,8 @@ import { Welcome } from '@/app/pages/welcome';
 import { getUsers } from '@/features/auth/api/users';
 import { useAuthStore } from '@/features/auth/stores/auth-store';
 import { Layout } from '@/features/layout/layout';
+import { convertToUserList, User, UserResponse } from '@/features/users/types/user';
+import { convertToList, ListResponse } from '@/lib/types/list';
 import { ErrorBoundary } from 'react-error-boundary';
 import {
     createBrowserRouter,
@@ -45,10 +47,9 @@ export const AppRouter: React.FC = () => {
                     path: '/users',
                     element: <UsersPage />,
                     loader: async () => {
-                        const response = await getUsers();
-                        if (response.ok) {
-                            const json = await response.json();
-                            return json;
+                        const response = await getUsers<ListResponse<UserResponse>>();
+                        if (response.success) {
+                            return convertToUserList(convertToList<User>(response.data)?.List);
                         }
                         throw new Error('LoaderError');
                     },

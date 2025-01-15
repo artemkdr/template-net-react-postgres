@@ -32,7 +32,7 @@ builder.Services.AddCors(options =>
     {
         var allowedOrigins = builder.Configuration["AllowedOrigins"]?.Split(",", StringSplitOptions.RemoveEmptyEntries);        
         if (allowedOrigins?.Any() == true) {            
-            corsBuilder.WithOrigins(allowedOrigins).AllowAnyHeader().AllowAnyMethod();
+            corsBuilder.WithOrigins(allowedOrigins).AllowAnyHeader().AllowAnyMethod();            
         }
     });
 });

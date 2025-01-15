@@ -3,10 +3,10 @@ import { ColorModeSwitcher } from '@/features/layout/components/color-mode-switc
 import { CustomNavLink } from '@/features/layout/components/custom-nav-link';
 import { LogoutNavLink } from '@/features/layout/components/logout-nav-link';
 import { Flex, HStack, Select, Text, useColorMode } from '@chakra-ui/react';
-import { FunctionComponent, ReactElement } from 'react';
+import { ReactElement } from 'react';
 import { useTranslation } from 'react-i18next';
 
-export const NavBar: FunctionComponent = (): ReactElement => {
+export const NavBar = (): ReactElement => {
     const { colorMode } = useColorMode();
     const { t, i18n } = useTranslation();
     const { isLoggedIn, username } = useAuthContext();

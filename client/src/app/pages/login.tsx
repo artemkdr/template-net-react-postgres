@@ -30,10 +30,10 @@ const Login: FunctionComponent = () => {
     const handleLogin = async () => {
         setIsLoading(true);
 
-        const response = await apiLogin(username, password);
-        if (response.ok) {
+        const response = await apiLogin<{token: string}>(username, password);
+        if (response.success) {
             setErrorMessage('');
-            const token = (await response.json())?.token;
+            const token = response.data?.token;
             if (token != null) {
                 login(token);
                 // reload last path
@@ -44,7 +44,7 @@ const Login: FunctionComponent = () => {
             }
         } else {
             logout();
-            if (response.status === 401) {
+            if (response.error?.status === 401) {
                 setErrorMessage(t('Message.LoginErrorWrongCredentials'));
             } else {
                 setErrorMessage(t('Message.LoginError'));

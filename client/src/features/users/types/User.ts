@@ -11,14 +11,16 @@ export interface User {
     ModifyDate: Date;
 }
 
+export interface UserResponse {
+    username: string;
+    status: string;
+    vars: unknown;
+    createDate: string;
+    modifyDate: string;
+}
+
 export const convertToUser = (data: unknown) => {
-    const userData = data as {
-        username: string;
-        status: string;
-        vars: unknown;
-        createDate: string;
-        modifyDate: string;
-    };
+    const userData = data as UserResponse;
     const user = {} as User;
     user.Username = userData?.username?.toString();
     user.Status = userData?.status as UserStatus;
@@ -38,7 +40,7 @@ export const getUserStatusColor = (status: UserStatus): string => {
     return '';
 };
 
-export const convertDataToUserList = (listData: unknown) => {
+export const convertToUserList = (listData: unknown) => {
     const list = [] as User[];
     if (listData instanceof Array) {
         for (const row of listData) {
