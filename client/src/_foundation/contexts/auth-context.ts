@@ -5,10 +5,9 @@ export interface AuthContextType {
     username: string | null;
 }
 
-export const AuthContext = createContext<AuthContextType | undefined>({
-    isLoggedIn: false,
-    username: null,
-});
+export const AuthContext = createContext<AuthContextType | undefined>(
+    undefined
+);
 
 export const useAuthContext = () => {
     const context = useContext(AuthContext);

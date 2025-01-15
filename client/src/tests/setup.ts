@@ -2,7 +2,7 @@ import '@testing-library/jest-dom';
 import { cleanup } from '@testing-library/react';
 import { afterEach, vi } from 'vitest';
 
-vi.mock('@/lib/api/api');
+vi.mock('@/api/api');
 
 vi.mock('react-i18next', () => ({
     I18nextProvider: vi.fn(),

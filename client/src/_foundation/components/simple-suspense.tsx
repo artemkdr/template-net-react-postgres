@@ -10,7 +10,10 @@ export const SimpleSuspense: React.FC<LoaderProps> = (props) => {
     if (children === undefined) {
         return <>{props.fallback}</>;
     }
-    if (Array.isArray(children) && children.length === 0) {
+    if (
+        (Array.isArray(children) && children.length === 0) ||
+        children === null
+    ) {
         return <>{props.emptyText}</>;
     }
     return <>{children}</>;

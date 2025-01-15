@@ -1,4 +1,4 @@
-import { useAuthContext } from '@/contexts/auth-context';
+import { useAuthContext } from '@/_foundation/contexts/auth-context';
 import { ColorModeSwitcher } from '@/features/layout/components/color-mode-switcher';
 import { CustomNavLink } from '@/features/layout/components/custom-nav-link';
 import { LogoutNavLink } from '@/features/layout/components/logout-nav-link';

@@ -1,4 +1,4 @@
-import callApi from '@/lib/api/api';
+import callApi from '@/api/api';
 
 export const login = async <T>(username: string, password: string) =>
     await callApi<T>('login', {

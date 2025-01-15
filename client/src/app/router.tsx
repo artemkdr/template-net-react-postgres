@@ -1,3 +1,4 @@
+import { convertToList, ListResponse } from '@/_foundation/types/list';
 import { NotFound } from '@/app/pages/errors/not-found';
 import { RouterError } from '@/app/pages/errors/router-error';
 import Login from '@/app/pages/login';
@@ -12,7 +13,6 @@ import {
     User,
     UserResponse,
 } from '@/features/users/types/user';
-import { convertToList, ListResponse } from '@/lib/types/list';
 import { ErrorBoundary } from 'react-error-boundary';
 import {
     createBrowserRouter,

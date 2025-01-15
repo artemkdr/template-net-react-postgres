@@ -79,5 +79,5 @@ If you you run as separate parts:
 * The [nginx.conf.ctmpl](nginx/nginx.conf.ctmpl) file is a Consul Template for Nginx to serve the React app and proxy API requests to the backend.
 * The [consul-template.hcl](nginx/consul-template.hcl) is the simplest Consul Template configuration file pointing to nginx configuration template.
 * The [nginx.conf](nginx/nginx.conf) file configures Nginx to serve the React app and proxy API requests to the backend.
-* The [init.sql](psqlinit/init.sql) script initializes the PostgreSQL database with the name `somedatabase` and fills `users` table with 5 users with hashed passwords. Find/replace it over the project if you want to use another one (`init.sql`, `appsettings.*.json`, `.env`).
+* The [init.sql](psqlinit/init.sql) script initializes the PostgreSQL database with the name `somedatabase` and fills `users` table with 5 users with hashed passwords (user1/password1, user2/password2...). Find/replace it over the project if you want to use another one (`init.sql`, `appsettings.*.json`, `.env`).
 * The Dockerfiles use multi-stage builds for optimized image size

@@ -1,4 +1,4 @@
-import { toInt } from '@/lib/utils/converters';
+import { toInt } from '@/_foundation/utils/converters';
 
 /**
  * Represents a list of items for a paginated data model.
@@ -48,18 +48,32 @@ export interface ListResponse<T = unknown> {
  */
 export const convertToList = <T = unknown>(
     json: unknown,
-    itemConverter?: <T>(item: unknown) => T
+    itemConverter?: (item: unknown) => T
 ): List<T> => {
     // it doesn't cast the json to ListResponse<T> type, it just tells the compiler that json is of type ListResponse<T>,
     // ideally we have to check if the json is of type ListResponse<T> and then cast it to ListResponse<T> type
     const data = json as ListResponse<T>;
+
+    if (!('list' in data)) {
+        throw new Error(
+            'Invalid JSON object. Expected a ListResponse object with at least a list property.'
+        );
+    }
+
+    if (!(data.list instanceof Array)) {
+        throw new Error(
+            'Invalid JSON object. Expected a ListResponse object with a list as an array.'
+        );
+    }
+
     return {
-        Page: toInt(data?.page),
-        PageSize: toInt(data?.pageSize),
-        TotalPages: toInt(data?.totalPages),
-        Total: toInt(data?.total),
-        List: itemConverter
-            ? data?.list?.map((x) => itemConverter(x))
-            : (data?.list as T[]),
+        Page: toInt(data?.page) || 1,
+        PageSize: toInt(data?.pageSize) || data.list.length,
+        TotalPages: toInt(data?.totalPages) || 1,
+        Total: toInt(data?.total) || data.list.length,
+        List:
+            (itemConverter
+                ? data?.list?.map((x) => itemConverter(x))
+                : (data?.list as T[])) || [],
     } as List<T>;
 };

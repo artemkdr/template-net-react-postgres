@@ -1,4 +1,7 @@
-import { AuthContext, AuthContextType } from '@/contexts/auth-context';
+import {
+    AuthContext,
+    AuthContextType,
+} from '@/_foundation/contexts/auth-context';
 import { LoadingIndicator } from '@/features/layout/loading-indicator';
 import { NavBar } from '@/features/layout/nav-bar';
 import { Box, BoxProps } from '@chakra-ui/react';

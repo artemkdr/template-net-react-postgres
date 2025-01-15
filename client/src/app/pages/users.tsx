@@ -1,4 +1,4 @@
-import { SimpleSuspense } from '@/components/simple-suspense';
+import { SimpleSuspense } from '@/_foundation/components/simple-suspense';
 import { User } from '@/features/users/types/user';
 import { Heading, Text, VStack } from '@chakra-ui/react';
 import { ReactElement, useEffect, useState } from 'react';

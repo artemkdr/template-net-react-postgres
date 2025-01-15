@@ -1,5 +1,5 @@
+import callApi from '@/api/api';
 import { useAuthStore } from '@/features/auth/stores/auth-store';
-import callApi from '@/lib/api/api';
 
 export const getUsers = async <T>() =>
     await callApi<T>('users', {}, useAuthStore.getState().token);

@@ -1,5 +1,5 @@
+import fetchJson from '@/_foundation/net/fetch-json';
 import config from '@/config/config';
-import fetchJson from '@/lib/api/fetch-json';
 
 export const callApi = async <T>(
     endpoint: string,
