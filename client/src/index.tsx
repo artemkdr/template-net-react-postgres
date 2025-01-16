@@ -1,3 +1,7 @@
+import '@fontsource/roboto-condensed/300.css';
+import '@fontsource/roboto-condensed/400.css';
+import '@fontsource/roboto-condensed/600.css';
+import '@fontsource/roboto-condensed/700.css';
 import './index.css';
 
 import React from 'react';

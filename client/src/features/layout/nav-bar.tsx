@@ -1,5 +1,5 @@
+import { ColorModeSwitcher } from '@/_foundation/components/color-mode-switcher';
 import { useAuthContext } from '@/_foundation/contexts/auth-context';
-import { ColorModeSwitcher } from '@/features/layout/components/color-mode-switcher';
 import { CustomNavLink } from '@/features/layout/components/custom-nav-link';
 import { LogoutNavLink } from '@/features/layout/components/logout-nav-link';
 import { ReactElement } from 'react';

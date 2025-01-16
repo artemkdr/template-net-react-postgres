@@ -1,5 +1,5 @@
 import { Layout } from '@/features/layout/layout';
-import { render, screen } from '@testing-library/react';
+import { act, fireEvent, render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router';
 import { describe, it } from 'vitest';
 
@@ -21,16 +21,12 @@ describe('<Layout />', () => {
                 <Layout authContext={mockedAuthContext} />
             </MemoryRouter>
         );
-        /*const darkModeButton = screen.getByLabelText(
+        const darkModeButton = screen.getByLabelText(
             new RegExp('switch to (dark|light) mode', 'i')
         );
         const ariaLabel = darkModeButton.getAttribute('aria-label') ?? '';
         const newMode = ariaLabel.indexOf(' dark') >= 0 ? 'dark' : 'light';
         act(() => fireEvent.click(darkModeButton));
-        await waitFor(() => {
-            expect(
-                document.querySelector(`body.chakra-ui-${newMode}`)
-            ).not.toBeNull();
-        });*/
+        await expect(document.documentElement).toHaveClass(newMode);
     });
 });

@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { SimpleSuspense } from './simple-suspense';
+import { SimpleSuspense } from '.';
 
 describe('SimpleSuspense', () => {
     it('renders fallback when children is undefined', () => {

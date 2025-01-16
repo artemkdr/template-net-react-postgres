@@ -2,20 +2,48 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+    :root {
+        --color-primary: rgb(240, 240, 240);
+        --color-text: rgb(33, 33, 33);
+        --color-success: rgb(0, 200, 81);
+        --color-info: rgb(51, 181, 229);
+        --color-warn: rgb(255, 187, 51);
+        --color-error: rgb(254, 78, 78);
+    }
+
+    :root.dark {
+        --color-primary: rgb(33, 33, 33);
+        --color-text: rgb(245, 245, 245);
+        --color-success: rgb(76, 175, 80);
+        --color-info: rgb(3, 169, 244);
+        --color-warn: rgb(255, 152, 0);
+        --color-error: rgb(244, 67, 54);
+    }
+
+    input,
+    select,
+    textarea,
+    button {
+        background-color: var(--color-primary);
+        color: var(--color-text);
+    }
+}
+
 body {
     margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
-        'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
-        'Helvetica Neue', sans-serif;
+    font-family: 'Roboto Condensed', 'Roboto', 'Helvetica Neue', sans-serif;
+    font-weight: 300;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    color: var(--color-text);
+    background-color: var(--color-primary);
 }
 
 h2 {
     font-weight: bold;
 }
 
-code {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-        monospace;
+a.active {
+    font-weight: bold;
 }
