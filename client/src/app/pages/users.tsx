@@ -1,8 +1,7 @@
 import { User } from '@/features/users/types/user';
-import { Heading, Text, VStack } from '@chakra-ui/react';
 import { ReactElement, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useLoaderData } from 'react-router-dom';
+import { useLoaderData } from 'react-router';
 
 export const UsersPage = (): ReactElement => {
     const data = useLoaderData() as User[];
@@ -14,15 +13,15 @@ export const UsersPage = (): ReactElement => {
     }, [data]);
 
     return (
-        <VStack align={'left'} spacing={5}>
-            <Heading as="h2" size="md">
-                {t('Users.Title')}
-            </Heading>
-            {users?.map((user) => (
-                <Text key={user.Username}>
-                    {user.Username} ({user.Status})
-                </Text>
-            ))}
-        </VStack>
+        <div className="text-left space-y-5">
+            <h2>{t('Users.Title')}</h2>
+            <ul>
+                {users?.map((user) => (
+                    <li key={user.Username}>
+                        {user.Username} ({user.Status})
+                    </li>
+                ))}
+            </ul>
+        </div>
     );
 };

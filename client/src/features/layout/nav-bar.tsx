@@ -2,12 +2,11 @@ import { useAuthContext } from '@/_foundation/contexts/auth-context';
 import { ColorModeSwitcher } from '@/features/layout/components/color-mode-switcher';
 import { CustomNavLink } from '@/features/layout/components/custom-nav-link';
 import { LogoutNavLink } from '@/features/layout/components/logout-nav-link';
-import { Flex, HStack, Select, Text, useColorMode } from '@chakra-ui/react';
 import { ReactElement } from 'react';
 import { useTranslation } from 'react-i18next';
 
 export const NavBar = (): ReactElement => {
-    const { colorMode } = useColorMode();
+    const colorMode = 'light';
     const { t, i18n } = useTranslation();
     const { isLoggedIn, username } = useAuthContext();
 
@@ -16,41 +15,36 @@ export const NavBar = (): ReactElement => {
     };
 
     return (
-        <Flex
+        <div
             data-testid="navbar"
-            alignItems={'center'}
-            justifyContent={'space-between'}
-            borderBottom={1}
-            borderStyle={'solid'}
-            borderColor={colorMode === 'light' ? 'gray.100' : 'gray.900'}
-            shadow={'sm'}
-            px={[2, 4, 8]}
-            py={[2, 4]}
-            fontSize={['xs', 'xs', 'xs', 'sm']}
-            width="100%"
-            overflowX={'auto'}
+            className="flex items-center justify-between border-b border-solid shadow-sm  text-xs w-full overflow-x-auto sm:px-4 sm:py-4 sm:text-sm"
+            style={{
+                borderColor: colorMode === 'light' ? 'gray.100' : 'gray.900',
+            }}
         >
-            <HStack overflow={'auto'} spacing={[2, 4]}>
+            <div className="flex overflow-auto space-x-2 sm:space-x-4">
                 <CustomNavLink
                     link={'/welcome'}
                     text={t('Navigation.Home')}
-                    textDecoration={'none'}
+                    className="no-underline"
                 />
                 <CustomNavLink
                     link={'/users'}
                     text={t('Navigation.Users')}
-                    textDecoration={'none'}
+                    className="no-underline"
                 />
-            </HStack>
+            </div>
 
-            <HStack spacing={1} overflow={'auto'}>
-                <Select
+            <div className="flex space-x-2 overflow-auto items-center">
+                <label htmlFor="language-select" className="sr-only">
+                    {t('Navigation.Language')}
+                </label>
+                <select
+                    id="language-select"
                     value={i18n.language}
                     onChange={changeLanguage}
-                    width={'3.5em'}
-                    size={'inherit'}
-                    border={'none'}
-                    outline={'none'}
+                    className="w-14 border-none outline-none"
+                    aria-label={t('Navigation.Language')}
                 >
                     {['en', 'fr'].map((item, index) => {
                         return (
@@ -59,23 +53,19 @@ export const NavBar = (): ReactElement => {
                             </option>
                         );
                     })}
-                </Select>
+                </select>
                 <ColorModeSwitcher />
                 {isLoggedIn ? (
-                    <HStack>
-                        <Text>
+                    <div className="flex space-x-1">
+                        <span>
                             {t('Navigation.CurrentUser', { user: username })}
-                        </Text>
+                        </span>
                         <LogoutNavLink link="/logout" />
-                    </HStack>
+                    </div>
                 ) : (
-                    <CustomNavLink
-                        link="/login"
-                        text={t('Login.Button')}
-                        aria-label="login"
-                    />
+                    <CustomNavLink link="/login" text={t('Login.Button')} />
                 )}
-            </HStack>
-        </Flex>
+            </div>
+        </div>
     );
 };

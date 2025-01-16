@@ -1,11 +1,10 @@
-import { Text } from '@chakra-ui/react';
-import { FunctionComponent, ReactElement } from 'react';
+import { ReactElement } from 'react';
 
-export const NotFound: FunctionComponent = (): ReactElement => {
+export const NotFound = (): ReactElement => {
     return (
         <>
-            <Text fontSize={'2xl'}>404</Text>
-            <Text>Page not found.</Text>
+            <p className="text-2xl">404</p>
+            <p>Page not found.</p>
         </>
     );
 };

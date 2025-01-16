@@ -1,8 +1,8 @@
-import { Link as ChakraLink, LinkProps } from '@chakra-ui/react';
+import { LinkHTMLAttributes } from 'react';
 import { MdLogout } from 'react-icons/md';
-import { NavLink as ReactRouterLink } from 'react-router-dom';
+import { Link } from 'react-router';
 
-interface LogoutNavLinkProps extends LinkProps {
+interface LogoutNavLinkProps extends LinkHTMLAttributes<HTMLAnchorElement> {
     link: string;
 }
 
@@ -10,13 +10,8 @@ export const LogoutNavLink: React.FC<LogoutNavLinkProps> = (props) => {
     const { link, ...rest } = props;
 
     return (
-        <ChakraLink
-            as={ReactRouterLink}
-            to={link}
-            aria-label="logout"
-            {...rest}
-        >
+        <Link to={link} aria-label="logout" {...rest}>
             <MdLogout size={'1.2rem'} />
-        </ChakraLink>
+        </Link>
     );
 };

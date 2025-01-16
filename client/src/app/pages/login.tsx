@@ -2,20 +2,10 @@ import { FunctionComponent, KeyboardEvent, useState } from 'react';
 
 import { login as apiLogin } from '@/features/auth/api/login';
 import { useAuthStore } from '@/features/auth/stores/auth-store';
-import {
-    Button,
-    Center,
-    FormControl,
-    FormLabel,
-    Input,
-    InputGroup,
-    InputLeftElement,
-    Stack,
-    Text,
-} from '@chakra-ui/react';
+
 import { useTranslation } from 'react-i18next';
 import { MdEmail, MdPassword } from 'react-icons/md';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 
 const Login: FunctionComponent = () => {
     const [username, setUsername] = useState('');
@@ -60,58 +50,54 @@ const Login: FunctionComponent = () => {
     };
 
     return (
-        <Center mt={10}>
-            <FormControl
-                as="fieldset"
-                maxWidth="400px"
-                padding={4}
-                border="1px solid #ccc"
-                borderRadius={4}
-            >
-                <Stack spacing={4}>
-                    <FormLabel>{t('Login.Title')}</FormLabel>
-                    <InputGroup>
-                        <InputLeftElement pointerEvents="none">
+        <div className="flex justify-center mt-10">
+            <fieldset className="max-w-md p-4 border border-gray-300 rounded">
+                <div className="space-y-4">
+                    <label className="block text-lg font-medium">
+                        {t('Login.Title')}
+                    </label>
+                    <div className="relative">
+                        <span className="absolute inset-y-0 left-0 flex items-center pl-3">
                             <MdEmail />
-                        </InputLeftElement>
-                        <Input
+                        </span>
+                        <input
+                            className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded"
                             placeholder={t('Login.Username')}
                             id="login"
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
                             onKeyDown={keyDownHandler}
                         />
-                    </InputGroup>
-                    <InputGroup>
-                        <InputLeftElement pointerEvents="none">
+                    </div>
+                    <div className="relative">
+                        <span className="absolute inset-y-0 left-0 flex items-center pl-3">
                             <MdPassword />
-                        </InputLeftElement>
-                        <Input
+                        </span>
+                        <input
                             type="password"
+                            className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded"
                             placeholder={t('Login.Password')}
                             id="password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             onKeyDown={keyDownHandler}
                         />
-                    </InputGroup>
-                    <Text
-                        hidden={errorMessage == null || errorMessage === ''}
-                        color="red"
+                    </div>
+                    <p
+                        className={`text-red-500 ${errorMessage ? 'block' : 'hidden'}`}
                     >
                         {errorMessage}
-                    </Text>
-                    <Button
+                    </p>
+                    <button
                         onClick={handleLogin}
-                        background="green"
-                        color="white"
+                        className="w-full py-2 bg-green-500 text-white rounded disabled:opacity-50"
                         disabled={isLoading}
                     >
                         {t('Login.Button')}
-                    </Button>
-                </Stack>
-            </FormControl>
-        </Center>
+                    </button>
+                </div>
+            </fieldset>
+        </div>
     );
 };
 

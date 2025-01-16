@@ -1,7 +1,6 @@
 import Login from '@/app/pages/login';
 import { useAuthStore } from '@/features/auth/stores/auth-store';
 import { mockedUseNavigate } from '@/tests/setup';
-import { ChakraProvider } from '@chakra-ui/react';
 import {
     act,
     fireEvent,
@@ -9,17 +8,15 @@ import {
     screen,
     waitFor,
 } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
+import { MemoryRouter } from 'react-router';
 import { describe, it } from 'vitest';
 
 describe('<Login />', () => {
     it('renders Login page', async () => {
         const { container } = render(
-            <ChakraProvider>
-                <MemoryRouter>
-                    <Login />
-                </MemoryRouter>
-            </ChakraProvider>
+            <MemoryRouter>
+                <Login />
+            </MemoryRouter>
         );
         const loginInput = container.querySelector('#login');
         const passwordInput = container.querySelector('#password');
@@ -31,11 +28,9 @@ describe('<Login />', () => {
 
     it('shows a login error on other than 401 error', async () => {
         render(
-            <ChakraProvider>
-                <MemoryRouter>
-                    <Login />
-                </MemoryRouter>
-            </ChakraProvider>
+            <MemoryRouter>
+                <Login />
+            </MemoryRouter>
         );
         const button = await screen.getByRole('button');
 
@@ -48,11 +43,9 @@ describe('<Login />', () => {
 
     it('shows a credentials error on wrong credentials', async () => {
         const { container } = render(
-            <ChakraProvider>
-                <MemoryRouter>
-                    <Login />
-                </MemoryRouter>
-            </ChakraProvider>
+            <MemoryRouter>
+                <Login />
+            </MemoryRouter>
         );
         const loginInput = container.querySelector('#login');
         const passwordInput = container.querySelector('#password');
@@ -73,11 +66,9 @@ describe('<Login />', () => {
 
     it('logins user on correct credentials', async () => {
         const { container } = render(
-            <ChakraProvider>
-                <MemoryRouter>
-                    <Login />
-                </MemoryRouter>
-            </ChakraProvider>
+            <MemoryRouter>
+                <Login />
+            </MemoryRouter>
         );
         const loginInput = container.querySelector('#login');
         const passwordInput = container.querySelector('#password');

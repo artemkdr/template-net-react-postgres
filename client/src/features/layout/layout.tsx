@@ -4,10 +4,9 @@ import {
 } from '@/_foundation/contexts/auth-context';
 import { LoadingIndicator } from '@/features/layout/loading-indicator';
 import { NavBar } from '@/features/layout/nav-bar';
-import { Box, BoxProps } from '@chakra-ui/react';
-import { Outlet, useNavigation } from 'react-router-dom';
+import { Outlet, useNavigation } from 'react-router';
 
-interface LayoutProps extends BoxProps {
+interface LayoutProps {
     authContext: AuthContextType;
 }
 
@@ -16,16 +15,20 @@ export const Layout: React.FC<LayoutProps> = (props) => {
 
     return (
         <AuthContext.Provider value={props.authContext}>
-            <Box width={'100%'}>
+            <div className="w-full">
                 <NavBar />
-                <Box p={[4, 8]} width="100%">
-                    <LoadingIndicator
-                        opacity={navigation.state === 'loading' ? 1 : 0}
-                        pointerEvents={'none'}
-                    />
+                <div className="w-full p-4">
+                    <div
+                        aria-busy={
+                            navigation.state === 'loading' ? 'true' : 'false'
+                        }
+                        className={`${navigation.state === 'loading' ? 'visible' : 'invisible'} pointer-events-none`}
+                    >
+                        <LoadingIndicator />
+                    </div>
                     <Outlet />
-                </Box>
-            </Box>
+                </div>
+            </div>
         </AuthContext.Provider>
     );
 };

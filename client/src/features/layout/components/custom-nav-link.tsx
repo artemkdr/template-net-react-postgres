@@ -1,24 +1,24 @@
-import { Link as ChakraLink, LinkProps, Text } from '@chakra-ui/react';
-import { NavLink as ReactRouterLink } from 'react-router-dom';
+import { LinkHTMLAttributes } from 'react';
+import { NavLink } from 'react-router';
 
-interface CustomNavLinkProps extends LinkProps {
+interface CustomNavLinkProps extends LinkHTMLAttributes<HTMLAnchorElement> {
     link: string;
     text: string;
 }
 
 export const CustomNavLink: React.FC<CustomNavLinkProps> = (props) => {
     const { link, text, ...rest } = props;
-    const activeStyle = { fontWeight: 'bold' };
-
     return (
-        <ChakraLink
-            as={ReactRouterLink}
+        <NavLink
             to={link}
-            _activeLink={activeStyle}
-            textDecoration={'underline'}
+            className={({ isActive, isPending }) =>
+                (isPending ? 'pending' : isActive ? 'active' : '') +
+                ' underline'
+            }
+            aria-label={text}
             {...rest}
         >
-            <Text>{text}</Text>
-        </ChakraLink>
+            <span>{text}</span>
+        </NavLink>
     );
 };

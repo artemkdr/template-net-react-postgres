@@ -1,5 +1,4 @@
 import { useAuthStore } from '@/features/auth/stores/auth-store';
-import { Text } from '@chakra-ui/react';
 import { FunctionComponent, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -11,5 +10,5 @@ export const Logout: FunctionComponent = () => {
         logout();
     });
 
-    return <Text>{t('Chao!')}</Text>;
+    return <p>{t('Chao!')}</p>;
 };

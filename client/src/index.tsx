@@ -1,5 +1,5 @@
-import theme from '@/app/themes/theme';
-import { ChakraProvider, ColorModeScript } from '@chakra-ui/react';
+import './index.css';
+
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
@@ -11,18 +11,6 @@ const root = ReactDOM.createRoot(
 );
 root.render(
     <React.StrictMode>
-        <ChakraProvider
-            theme={theme}
-            toastOptions={{
-                defaultOptions: {
-                    isClosable: true,
-                    duration: 3000,
-                    position: 'top',
-                },
-            }}
-        >
-            <ColorModeScript />
-            <AppRouter />
-        </ChakraProvider>
+        <AppRouter />
     </React.StrictMode>
 );

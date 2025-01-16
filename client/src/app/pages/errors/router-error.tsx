@@ -1,21 +1,9 @@
 import Login from '@/app/pages/login';
 import { useAuthStore } from '@/features/auth/stores/auth-store';
-import {
-    AlertDialog,
-    AlertDialogBody,
-    AlertDialogCloseButton,
-    AlertDialogContent,
-    AlertDialogFooter,
-    AlertDialogHeader,
-    Button,
-} from '@chakra-ui/react';
-import { useRef, useState } from 'react';
+
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-    isRouteErrorResponse,
-    useNavigate,
-    useRouteError,
-} from 'react-router-dom';
+import { isRouteErrorResponse, useNavigate, useRouteError } from 'react-router';
 
 interface IError {
     error?: Error;
@@ -30,7 +18,6 @@ interface RouterErrorProps {
 export const RouterError = ({ error }: RouterErrorProps) => {
     const { t } = useTranslation();
     const nav = useNavigate();
-    const cancelRef = useRef(null);
     const authStore = useAuthStore();
     const displayedError: unknown = useRouteError() ?? error;
     const [isOpened, setIsOpened] = useState(true);
@@ -65,25 +52,33 @@ export const RouterError = ({ error }: RouterErrorProps) => {
     )
         errorMessage = 'ForbidError';
     return (
-        <AlertDialog
-            isOpen={isOpened}
-            onClose={onClose}
-            leastDestructiveRef={cancelRef}
+        <div
+            className={`fixed inset-0 flex items-center justify-center ${isOpened ? 'block' : 'hidden'}`}
         >
-            <AlertDialogContent>
-                <AlertDialogHeader>
-                    {t('Message.RouterError')}
-                </AlertDialogHeader>
-                <AlertDialogCloseButton />
-                <AlertDialogBody>
-                    {t('Message.' + errorMessage)}
-                </AlertDialogBody>
-                <AlertDialogFooter>
-                    <Button colorScheme="green" ml={3} onClick={() => nav('/')}>
+            <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
+                <div className="flex justify-between items-center border-b pb-3">
+                    <h2 className="text-lg font-semibold">
+                        {t('Message.RouterError')}
+                    </h2>
+                    <button
+                        className="text-gray-500 hover:text-gray-700"
+                        onClick={onClose}
+                    >
+                        &times;
+                    </button>
+                </div>
+                <div className="py-4">
+                    <p>{t('Message.' + errorMessage)}</p>
+                </div>
+                <div className="flex justify-end pt-3 border-t">
+                    <button
+                        className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+                        onClick={() => nav('/')}
+                    >
                         {t('OK')}
-                    </Button>
-                </AlertDialogFooter>
-            </AlertDialogContent>
-        </AlertDialog>
+                    </button>
+                </div>
+            </div>
+        </div>
     );
 };

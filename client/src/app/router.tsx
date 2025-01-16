@@ -14,11 +14,7 @@ import {
     UserResponse,
 } from '@/features/users/types/user';
 import { ErrorBoundary } from 'react-error-boundary';
-import {
-    createBrowserRouter,
-    Navigate,
-    RouterProvider,
-} from 'react-router-dom';
+import { createBrowserRouter, Navigate, RouterProvider } from 'react-router';
 
 export const AppRouter: React.FC = () => {
     const authStore = useAuthStore();
