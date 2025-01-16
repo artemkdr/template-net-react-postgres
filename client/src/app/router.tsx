@@ -51,9 +51,10 @@ export const AppRouter: React.FC = () => {
                     path: '/users',
                     element: <UsersPage />,
                     loader: async () => {
-                        await new Promise((resolve) =>
+                        // simulate long loading
+                        /*await new Promise((resolve) =>
                             setTimeout(resolve, 1000)
-                        );
+                        );*/
                         const response =
                             await getUsers<ListResponse<UserResponse>>();
                         if (response.success) {
