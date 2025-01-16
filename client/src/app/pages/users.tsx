@@ -1,4 +1,3 @@
-import { SimpleSuspense } from '@/_foundation/components/simple-suspense';
 import { User } from '@/features/users/types/user';
 import { Heading, Text, VStack } from '@chakra-ui/react';
 import { ReactElement, useEffect, useState } from 'react';
@@ -19,16 +18,11 @@ export const UsersPage = (): ReactElement => {
             <Heading as="h2" size="md">
                 {t('Users.Title')}
             </Heading>
-            <SimpleSuspense
-                fallback={<Text>{t('Loading')}</Text>}
-                emptyText={t('Users.Empty')}
-            >
-                {users?.map((user) => (
-                    <Text key={user.Username}>
-                        {user.Username} ({user.Status})
-                    </Text>
-                ))}
-            </SimpleSuspense>
+            {users?.map((user) => (
+                <Text key={user.Username}>
+                    {user.Username} ({user.Status})
+                </Text>
+            ))}
         </VStack>
     );
 };

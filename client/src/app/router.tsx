@@ -5,9 +5,9 @@ import Login from '@/app/pages/login';
 import { Logout } from '@/app/pages/logout';
 import { UsersPage } from '@/app/pages/users';
 import { Welcome } from '@/app/pages/welcome';
-import { getUsers } from '@/features/auth/api/users';
 import { useAuthStore } from '@/features/auth/stores/auth-store';
 import { Layout } from '@/features/layout/layout';
+import { getUsers } from '@/features/users/api/users';
 import {
     convertToUserList,
     User,
@@ -51,6 +51,9 @@ export const AppRouter: React.FC = () => {
                     path: '/users',
                     element: <UsersPage />,
                     loader: async () => {
+                        await new Promise((resolve) =>
+                            setTimeout(resolve, 1000)
+                        );
                         const response =
                             await getUsers<ListResponse<UserResponse>>();
                         if (response.success) {
@@ -58,7 +61,9 @@ export const AppRouter: React.FC = () => {
                                 convertToList<User>(response.data)?.List
                             );
                         }
-                        throw new Error('LoaderError');
+                        throw new Error('LoaderError', {
+                            cause: response.error,
+                        });
                     },
                 },
                 {

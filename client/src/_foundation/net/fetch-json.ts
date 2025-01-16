@@ -8,13 +8,14 @@ interface FetchJsonResponse<T> {
     error?: {
         status: number;
         message: string;
+        original?: string;
     };
 }
 
 /**
  * Fetches JSON data from the specified endpoint.
  * Cacthes any errors that may occur during the fetch request and returns an error in the response object as FetchJsonResponse.
- * It expects the server to return a JSON object like `{"error": "User not found"}` in case of an error, "error" field could be also named "message" or "reason" or "detail".
+ * It expects the server to return a JSON object like `{"error": "User not found"}` in case of an error, "error" field could be also named "message" or "reason" or "title".
  *
  * @template T - The expected type of the response data.
  * @param {string} endpoint - The URL endpoint to fetch data from.
@@ -32,7 +33,7 @@ interface FetchJsonResponse<T> {
  * if (response.success) {
  *   console.log(response.data);
  * } else {
- *   console.error(response.error?.status, response.error?.message);
+ *   console.error(response.error?.status, response.error?.message, response.error?.original);
  * }
  * ```
  */
@@ -65,17 +66,20 @@ const fetchJson = async <T>(
             status: UNKNOWN_ERROR_STATUS,
         };
         let errorMessage = knownError.message;
+        const errorResponseText = await errorResponse.text();
         try {
-            const errorJson = await errorResponse.json();
-            // expects that the server returns a JSON object with a ('message' | 'error' | 'detail' | 'reason') field
+            const errorJson = JSON.parse(errorResponseText) as Record<
+                string,
+                string
+            >;
+            // expects that the server returns a JSON object with a ('message' | 'error' | 'title' | 'reason') field
             errorMessage =
                 errorJson.message ||
                 errorJson.error ||
-                errorJson.detail ||
-                errorJson.reason ||
-                (errorJson as string);
+                errorJson.title ||
+                errorJson.reason;
         } catch {
-            errorMessage = await errorResponse.text();
+            errorMessage = errorResponseText;
         }
         if (errorMessage?.length === 0) errorMessage = UNKNOWN_ERROR_MESSAGE;
         return {
@@ -84,6 +88,7 @@ const fetchJson = async <T>(
             error: {
                 status: errorResponse.status,
                 message: errorMessage,
+                original: errorResponseText,
             },
         };
     }
