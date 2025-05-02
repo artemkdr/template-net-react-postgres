@@ -36,7 +36,7 @@
         "@testing-library/dom": "^10.4.0",
         "@testing-library/jest-dom": "^5.17.0",
         "@testing-library/react": "^16.1.0",
-        "@testing-library/user-event": "^13.5.0",
+        "@testing-library/user-event": "^14.6.1",
         "@types/react": "^19.0.10",
         "@types/react-dom": "^19.0.4",
         "@vitejs/plugin-react-swc": "^3.5.0",
