@@ -19,7 +19,7 @@
         "@fontsource/roboto-condensed": "^5.2.5",
         "base-64": "^1.0.0",
         "i18n": "^0.15.1",
-        "i18next": "^24.1.2",
+        "i18next": "^25.2.1",
         "i18next-browser-languagedetector": "^8.0.0",
         "i18next-http-backend": "^2.6.2",
         "jwt-decode": "^4.0.0",
