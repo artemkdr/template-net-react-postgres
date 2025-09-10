@@ -16,7 +16,7 @@
         "prepare": "cd .. && husky client/.husky"
     },
     "dependencies": {
-        "@fontsource/roboto-condensed": "^5.2.5",
+        "@fontsource/roboto-condensed": "^5.2.6",
         "base-64": "^1.0.0",
         "i18n": "^0.15.1",
         "i18next": "^25.2.1",
